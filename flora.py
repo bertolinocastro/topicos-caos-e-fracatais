@@ -128,9 +128,4 @@ Pvals = []; Zvals = []
 
 # plotting the phase space
 
-
-graph = plot(Pn, Zn)
-
-
-
 # plot()
