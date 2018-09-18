@@ -4,6 +4,7 @@
 
 from sympy import *
 from sympy.plotting import plot
+import numpy as np
 
 init_printing()
 
@@ -27,12 +28,12 @@ def lprint(aaa):
 
 # defining symbols for symbolic library
 # x and y are the variables and the other are constants
-P, Z, r, delta, alfa, d, k = symbols('P Z r delta alpha d k')
+P, Z, r, delta, alpha, d, k = symbols('P Z r delta alpha d k')
 
 # expression for dP/dt
-Ppoint = r*P*(1-(P/k)) - alfa*P*Z/(1+P)
+Ppoint = r*P*(1-(P/k)) - alpha*P*Z/(1+P)
 # expression for dZ/dt
-Zpoint = delta*alfa*P*Z/(1+P) - d*Z
+Zpoint = delta*alpha*P*Z/(1+P) - d*Z
 
 print("\ndP/dt")
 lprint(Ppoint)
@@ -52,8 +53,8 @@ lprint(fixPoints)
 
 # getting the jacobian Matrix
 A = Matrix(
-    [r*P*(1-(P/k)) - alfa*P*Z/(1+P),
-    delta*alfa*P*Z/(1+P) - d*Z]
+    [r*P*(1-(P/k)) - alpha*P*Z/(1+P),
+    delta*alpha*P*Z/(1+P) - d*Z]
 )
 
 B = Matrix(
@@ -80,8 +81,56 @@ for P0,Z0 in fixPoints:
 
 
 
-print(M.eigenvals())  #returns eigenvalues and their algebraic multiplicity
-print(M.eigenvects())  #returns eigenvalues, eigenvects
+eigenVa = M.eigenvals()
+eigenVe = M.eigenvects()
+
+# computing the numerical values (quadrature)
+
+# def vdp(y, t, mu):
+#     return [
+# y[1],
+# mu*(1-y[0]**2)*y[1] - y[0]
+# ]
+#
+# using "Euler forward":
+#
+# tout = np.linspace(0, 200, 1024)
+# y_init, params = [1, 0], (17,)
+# y_euler = euler_fw(vdp, y_init, tout, params)  # never mind the warnings emitted here...
+
+
+
+# Defining initial conditions
+# r - prey growth tax
+# delta - hunters reproduction tax per prey eaten
+# alfa - predation coefficient
+# d - hunter's death tax
+# k - system's support capacity
+r0 = 1
+alpha0 = 1
+delta0 = 1
+d0 = 1
+k0 = 1
+
+# getting new ode's for computation
+Pn = Ppoint.subs({r:r0,alpha:alpha0,delta:delta0,d:d0,k:k0})
+Zn = Zpoint.subs({r:r0,alpha:alpha0,delta:delta0,d:d0,k:k0})
+
+# simplifying
+Pn.simplify()
+Zn.simplify()
+
+# Defining the vector of "t"s
+t = np.linspace(0, 200, 1000)
+
+Pvals = []; Zvals = []
+# for it in t:
+
+# plotting the phase space
+
+
+graph = plot(Pn, Zn)
+
 
 
 # plot()
