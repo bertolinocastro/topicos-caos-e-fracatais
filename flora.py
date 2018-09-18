@@ -80,6 +80,8 @@ for P0,Z0 in fixPoints:
 
 
 
+print(M.eigenvals())  #returns eigenvalues and their algebraic multiplicity
+print(M.eigenvects())  #returns eigenvalues, eigenvects
 
 
 # plot()
