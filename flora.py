@@ -115,14 +115,16 @@ d0 = 0.2
 k0 = 10
 
 # defining number of different parameter values
-nSamp = 300
+nSamp = 100
 
 # testing some approaches
-plot0 = r0 = np.linspace(0.0, 2.0, nSamp)
-# plot0 = alpha0 = np.linspace(0.0, .6, nSamp)
+# plot0 = r0 = np.linspace(0.0, 2.0, nSamp)
+plot0 = alpha0 = np.linspace(0.0, 1., nSamp)
 # plot0 = delta0 = np.linspace(0, 3.0, nSamp)
 # plot0 = d0 = np.linspace(0.0, 1.1, nSamp)
 # plot0 = k0 = np.linspace(2.5, 10, nSamp)
+
+from sys import exit
 
 # defining some initial value for biomasses
 P_0 = 20
@@ -155,8 +157,8 @@ lprint(Zn)
 # number of iterations
 n = 20000
 
-Pvals = np.zeros((n,nSamp))
-Zvals = np.zeros((n,nSamp))
+Pvals = np.zeros((n,nSamp),dtype='float128')
+Zvals = np.zeros((n,nSamp),dtype='float128')
 
 Pvals[0] = P_0
 Zvals[0] = Z_0
@@ -167,6 +169,10 @@ fig = plt.figure(0)
 fig1 = plt.figure(1)
 ax = fig.add_subplot(1, 1, 1, projection='3d')
 ax1 = fig1.add_subplot(1, 1, 1)
+
+# setting title
+ax.set_title("Bifurcation\nPhase space vs. parameter")
+ax1.set_title("Bifurcation\nVariables vs. parameter")
 
 # phase space 3D
 ax.set_xlabel("Hunter")
@@ -181,6 +187,7 @@ ax1.set_ylabel("Mass")
 
 
 
+# foi = False
 for i in range(1,n):
     Pvals[i] = Pvals[i-1] + h*PnL(Pvals[i-1],Zvals[i-1],r0,alpha0,delta0,d0,k0)
     Zvals[i] = Zvals[i-1] + h*ZnL(Pvals[i-1],Zvals[i-1],r0,alpha0,delta0,d0,k0)
@@ -192,8 +199,24 @@ for i in range(1,n):
     #     print('\n\nSomething went wrong. A biomass has got negative value.')
     #     break
 
+    Pvals[i].clip(0., out=Pvals[i]) # Attempting to block negative value
+    Zvals[i].clip(0., out=Zvals[i]) # Attempting to block negative value
+
     # Pvals[i] = Pit
     # Zvals[i] = Pit
+    # if np.isnan(Pvals).any() or np.isinf(Pvals).any():
+    #     if foi:
+    #         np.savetxt("P.csv", Pvals, delimiter=",")
+    #         np.savetxt("Z.csv", Zvals, delimiter=",")
+    #         print(i)
+    #         # print(Pvals)
+    #         exit()
+    #     foi = True
+    #
+    # if i >= 50:
+    #     np.savetxt("P.csv", Pvals, delimiter=",")
+    #     np.savetxt("Z.csv", Zvals, delimiter=",")
+    #     exit()
 
 print('\n\n%d iterations were done.' % i)
 
@@ -242,9 +265,9 @@ ax1.plot(plot0,Zvals[i], color='orange', label='Hunter')
 # handleP = mpt.Patch(color='blue')
 # handleH = mpt.Patch(color='orange')
 # ax.legend((handleP,handleH),('Prey','Hunter'))
-ax.legend()
 
 # plotting the fix points
+dummy = len(fixPoints)
 for point in fixPoints:
     fx = lambdify((r,alpha,delta,d,k), point[0], 'numpy')
     fy = lambdify((r,alpha,delta,d,k), point[1], 'numpy')
@@ -257,13 +280,24 @@ for point in fixPoints:
     if not hasattr(ppy, '__len__'):
         ppy = [ppy for _ in range(len(plot0))]
 
-    ax.plot( ppy, ppx, plot0, color='#e018bb')
+    dummy -= 1
+    if dummy > 0:
+        ax.plot( ppy, ppx, plot0, color='#e018bb')
+    else:
+        ax.plot( ppy, ppx, plot0, label='Fixed points', color='#e018bb')
 
 # plotting the starter point
-ax.plot( [Z_0,Z_0], [P_0,P_0], ax.get_zlim(), color='g')
-ax1.scatter( ax.get_xlim()[0], P_0, color='g')
-ax1.scatter( ax.get_xlim()[0], Z_0, color='g')
+ax.plot( [Z_0,Z_0], [P_0,P_0], ax.get_zlim(), label='Initial condition', color='g')
+ax1.scatter( max(0,ax.get_xlim()[0]), Z_0, color='g')
+ax1.scatter( max(0,ax.get_xlim()[0]), P_0, label='Initial condition', color='g')
 # ax.scatter( Z_0, P_0, color='g', marker='o', s=25)
+
+ax.legend()
+ax1.legend()
+
+# setting 0 as lower limit for mass axes in 3D plot
+i,j = ax.get_xlim(); ax.set_xlim(0,j)
+i,j = ax.get_ylim(); ax.set_ylim(0,j)
 
 plt.show()
 # plt.savefig('phase-space_%.2fx%.2fx%.2fx%.2f.svg' % (ri, alphai, deltai, di))
