@@ -10,6 +10,7 @@ import numpy as np
 
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpt
 
 init_printing()
 
@@ -121,17 +122,17 @@ nSamp = 100
 
 # testing some approaches
 # plot0 = r0 = np.linspace(0.0, 2.0, nSamp)
-plot0 = alpha0 = np.linspace(0.0, 1., nSamp)
+# plot0 = alpha0 = np.linspace(0.0, 1., nSamp)
 # plot0 = delta0 = np.linspace(0, 3.0, nSamp)
 # plot0 = d0 = np.linspace(0.0, 1.1, nSamp)
-# plot0 = k0 = np.linspace(2.5, 10, nSamp)
+plot0 = k0 = np.linspace(2.5, 10, nSamp)
 
 # no. of initial conditions
-massN = 2
+massN = 1
 
 # defining some initial value for biomasses
-P_N = np.linspace(1., 20., massN)
-Z_N = np.linspace(1., 20., massN)
+P_N = np.linspace(20., 20., massN)
+Z_N = np.linspace(5., 5., massN)
 
 # TODO: plot different initial condition curvers in the same plot
 
@@ -222,7 +223,7 @@ for P_0, Z_0 in zip(P_N, Z_N):
     pl = 0
 
     # plotting the phase space 3D
-    for i in range(0,len(plot0),int(len(plot0)/secs)):
+    for i in range(0,len(plot0),int(len(plot0)/secs)+1):
         ax.plot(Zvals[:,i],Pvals[:,i],plot0[i], color=((1./secs)*pl,(1./secs)*pl,(1./secs)*pl))
         # ax.plot(Zvals[:,i],Pvals[:,i],plot0[i], marker='o', color='k')
         pl+=1
@@ -271,11 +272,11 @@ for point in fixPoints:
         ax.plot( ppy, ppx, plot0, label='Fixed points', color='#e018bb')
 
 # creating legend
-# handleP = mpt.Patch(color='blue')
-# handleH = mpt.Patch(color='orange')
-# ax.legend((handleP,handleH),('Prey','Hunter'))
-ax.legend()
-ax1.legend()
+hdlB = mpt.Patch(color='blue')
+hdlO = mpt.Patch(color='orange')
+hdlG = mpt.Patch(color='g')
+ax.legend((hdlG,), ('Initial condition',))
+ax1.legend((hdlB,hdlO,hdlG),('Prey','Hunter','Initial condition'))
 
 # setting 0 as lower limit for mass axes in 3D plot and Pmax&Zmax for higher limit
 ax.set_xlim(0,Zmax)

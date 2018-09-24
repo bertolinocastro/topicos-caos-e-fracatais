@@ -1,0 +1,18 @@
+Value of parameters used as default for each plot
+
+# r - prey growth tax
+# alfa - predation coefficient
+# delta - hunters reproduction tax per prey eaten
+# d - hunter's death tax
+# k - system's support capacity
+r0 = 0.8
+alpha0 = 0.3
+delta0 = 0.8
+d0 = 0.2
+k0 = 10
+
+P_0 = 20.
+Z_0 = 5.
+
+* Obs.: Each plot has its title defining which parameter was varied,
+        thus the one of the above parameter values were not used.
