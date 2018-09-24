@@ -127,20 +127,11 @@ plot0 = alpha0 = np.linspace(0.0, 1., nSamp)
 # plot0 = k0 = np.linspace(2.5, 10, nSamp)
 
 # no. of initial conditions
-<<<<<<< HEAD
 massN = 2
 
 # defining some initial value for biomasses
 P_N = np.linspace(1., 20., massN)
 Z_N = np.linspace(1., 20., massN)
-=======
-massN = 10
-
-# defining some initial value for biomasses
-P_N = np.linspace(0., 20., massN)
-Z_N = np.linspace(0., 20., massN)
->>>>>>> c5b907f8d193291301dc1f83b4bc2052b953651d
-
 
 # TODO: plot different initial condition curvers in the same plot
 
