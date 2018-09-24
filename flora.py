@@ -2,6 +2,8 @@
 
 # script aiming to depict the lotka volterra model!
 
+from sys import exit
+
 from sympy import *
 from sympy.plotting import *
 import numpy as np
@@ -15,8 +17,7 @@ def lprint(aaa):
     print()
     pprint(aaa, use_unicode=True)
 
-# constants
-
+# constants:
 # r - prey growth tax
 # delta - hunters reproduction tax per prey eaten
 # alfa - predation coefficient
@@ -24,16 +25,16 @@ def lprint(aaa):
 # k - system's support capacity
 
 # steps:
-
 # 1- obtain the fix point;
 # 2- obtain the jacobian matriz (linearization)
 # 3- obtain the eigenvalues for each fix point got
+# 4- construct the numeric model and plot its phase-space & bifurcation diagram
 
 # defining symbols for symbolic library
-# x and y are the variables and the other are constants
+# P and Z are the variables and the other are constants
 P, Z = symbols('P Z')
 P, Z, r, delta, alpha, d, k = symbols('P Z r delta alpha d k', negative=False)
-lam = symbols('lambda') # symol used to compute the eigenvalues by hand
+lam = symbols('lambda') # symbol used to compute the eigenvalues 'manually'
 
 # expression for dP/dt
 Ppoint = r*P*(1-(P/k)) - alpha*P*Z/(1+P)
@@ -52,10 +53,11 @@ fixPoints = solve([ Ppoint, # it's equal to dP/dt
                     [P, Z])
 
 
-# fix points (points symbolic representing possible situations with the origina expression)
+# fix points (points symbolic representing possible situations with the original expression)
 print("\n\nfix points:")
 lprint(fixPoints)
 
+# TODO: apply Ppoint and Zpoint to this entries
 # getting the jacobian Matrix
 A = Matrix(
     [r*P*(1-(P/k)) - alpha*P*Z/(1+P),
@@ -124,11 +126,15 @@ plot0 = alpha0 = np.linspace(0.0, 1., nSamp)
 # plot0 = d0 = np.linspace(0.0, 1.1, nSamp)
 # plot0 = k0 = np.linspace(2.5, 10, nSamp)
 
-from sys import exit
+# no. of initial conditions
+massN = 2
 
 # defining some initial value for biomasses
-P_0 = 20
-Z_0 = 5
+P_N = np.linspace(1., 20., massN)
+Z_N = np.linspace(1., 20., massN)
+
+
+# TODO: plot different initial condition curvers in the same plot
 
 # defining crucial step size for Euler's integration method
 h = .1
@@ -157,13 +163,11 @@ lprint(Zn)
 # number of iterations
 n = 20000
 
+# defining matrices for computation (iteration vs. parameter)
 Pvals = np.zeros((n,nSamp),dtype='float128')
 Zvals = np.zeros((n,nSamp),dtype='float128')
 
-Pvals[0] = P_0
-Zvals[0] = Z_0
-
-# starting plotting procedures
+# starting plot procedures
 # plotting the phase space
 fig = plt.figure(0)
 fig1 = plt.figure(1)
@@ -182,90 +186,70 @@ ax.set_zlabel("Parameter")
 # dependence on parameter 2D
 ax1.set_xlabel("Parameter")
 ax1.set_ylabel("Mass")
-# ax2.set_xlabel("Parameter")
-# ax2.set_ylabel("Hunter")
-
-
-
-# foi = False
-for i in range(1,n):
-    Pvals[i] = Pvals[i-1] + h*PnL(Pvals[i-1],Zvals[i-1],r0,alpha0,delta0,d0,k0)
-    Zvals[i] = Zvals[i-1] + h*ZnL(Pvals[i-1],Zvals[i-1],r0,alpha0,delta0,d0,k0)
-
-    # if Pit == Pvals[i-1] and Zit == Zvals[i-1]:
-    #     print('\n\nFix state encountered!')
-    #     break
-    # elif Pit < 0. or Zit < 0.:
-    #     print('\n\nSomething went wrong. A biomass has got negative value.')
-    #     break
-
-    Pvals[i].clip(0., out=Pvals[i]) # Attempting to block negative value
-    Zvals[i].clip(0., out=Zvals[i]) # Attempting to block negative value
-
-    # Pvals[i] = Pit
-    # Zvals[i] = Pit
-    # if np.isnan(Pvals).any() or np.isinf(Pvals).any():
-    #     if foi:
-    #         np.savetxt("P.csv", Pvals, delimiter=",")
-    #         np.savetxt("Z.csv", Zvals, delimiter=",")
-    #         print(i)
-    #         # print(Pvals)
-    #         exit()
-    #     foi = True
-    #
-    # if i >= 50:
-    #     np.savetxt("P.csv", Pvals, delimiter=",")
-    #     np.savetxt("Z.csv", Zvals, delimiter=",")
-    #     exit()
-
-print('\n\n%d iterations were done.' % i)
-
-# ax.plot(Zvals[0],Pvals[0],r0, color='k')
-
-# defining number of sections in plot
-secs = 10
-
-# number of lines
-length = 10
-# length = len(plot0)
-
-# defining color multiplier for gray-scale
-cS = 1./secs
-
-# defining the plane number
-pl = 0
 
 from colour import Color
-blue = Color('blue')
-orange = Color('orange')
-init = Color('black')
+blue = Color('blue'); orange = Color('orange'); init = Color('black')
 
-# defining colormaps
+# defining number of sections (planes) in 3D-plot
+secs = 10
+
+# number of lines for 2D-diagram
+length = 10
+
+# defining colormaps for 2D-diagram
 cmB = [x.get_rgb() for x in list(init.range_to(blue, length))]
 cmO = [x.get_rgb() for x in list(init.range_to(orange, length))]
 
-# ax.plot(Zvals[-100:,50],Pvals[-100:,50],plot0[50], marker='o', color=(cS*pl,cS*pl,cS*pl))
+# defining some variables to centralize the 3D plot
+Pmax = 0
+Zmax = 0
 
-# plotting the phase space 3D
-for i in range(0,len(plot0),int(len(plot0)/secs)):
-    ax.plot(Zvals[:,i],Pvals[:,i],plot0[i], color=(cS*pl,cS*pl,cS*pl))
-    # ax.plot(Zvals[:,i],Pvals[:,i],plot0[i], marker='o', color='k')
-    pl+=1
+for P_0, Z_0 in zip(P_N, Z_N):
+    Pvals[0] = P_0
+    Zvals[0] = Z_0
 
-# plotting the dependence on parameter 2D
-for i in range(len(plot0)-length,len(plot0),secs):
-    ax1.plot(plot0,Pvals[i], color='b')
-    ax1.plot(plot0,Zvals[i], color='orange')
+    print('\nP_0 = %.6f Z_0 = %.6f' % (P_0, Z_0))
 
-# plotting the dependence on parameter 2D
-ax1.plot(plot0,Pvals[i], color='b', label='Prey')
-ax1.plot(plot0,Zvals[i], color='orange', label='Hunter')
+    for i in range(1,n):
+        Pvals[i] = Pvals[i-1] + h*PnL(Pvals[i-1],Zvals[i-1],r0,alpha0,delta0,d0,k0)
+        Zvals[i] = Zvals[i-1] + h*ZnL(Pvals[i-1],Zvals[i-1],r0,alpha0,delta0,d0,k0)
 
-# creating legend
-# handleP = mpt.Patch(color='blue')
-# handleH = mpt.Patch(color='orange')
-# ax.legend((handleP,handleH),('Prey','Hunter'))
+        Pvals[i].clip(0., out=Pvals[i]) # Attempting to block negative value
+        Zvals[i].clip(0., out=Zvals[i]) # Attempting to block negative value
 
+    # print('\n\n%d iterations were done.' % i)
+
+    # defining the plane number
+    pl = 0
+
+    # plotting the phase space 3D
+    for i in range(0,len(plot0),int(len(plot0)/secs)):
+        ax.plot(Zvals[:,i],Pvals[:,i],plot0[i], color=((1./secs)*pl,(1./secs)*pl,(1./secs)*pl))
+        # ax.plot(Zvals[:,i],Pvals[:,i],plot0[i], marker='o', color='k')
+        pl+=1
+
+    # plotting the dependence on parameter 2D
+    for i in range(len(plot0)-length,len(plot0),secs):
+        ax1.plot(plot0,Pvals[i], color='b')
+        ax1.plot(plot0,Zvals[i], color='orange')
+    # ax1.plot(plot0,Pvals[i], color='b', label='Prey')
+    # ax1.plot(plot0,Zvals[i], color='orange', label='Hunter')
+
+    # plotting the starter point
+    ax.plot( [Z_0,Z_0], [P_0,P_0], ax.get_zlim(), color='g')
+    ax1.scatter( max(0,ax.get_xlim()[0]), Z_0, color='g')
+    ax1.scatter( max(0,ax.get_xlim()[0]), P_0, color='g')
+    # ax.scatter( Z_0, P_0, color='g', marker='o', s=25)
+    # ax.plot( [Z_0,Z_0], [P_0,P_0], ax.get_zlim(), label='Initial condition', color='g')
+    # ax1.scatter( max(0,ax.get_xlim()[0]), Z_0, color='g')
+    # ax1.scatter( max(0,ax.get_xlim()[0]), P_0, label='Initial condition', color='g')
+    # ax.scatter( Z_0, P_0, color='g', marker='o', s=25)
+
+    _0,_1 = Pvals.max(), Zvals.max()
+    Pmax = _0 if _0 > Pmax else Pmax
+    Zmax = _1 if _1 > Zmax else Zmax
+
+# -- Fixed points for the model
 # plotting the fix points
 dummy = len(fixPoints)
 for point in fixPoints:
@@ -280,24 +264,23 @@ for point in fixPoints:
     if not hasattr(ppy, '__len__'):
         ppy = [ppy for _ in range(len(plot0))]
 
+    # variable used to control whether to plot the legend label (to prevent multiple assignments)
     dummy -= 1
     if dummy > 0:
         ax.plot( ppy, ppx, plot0, color='#e018bb')
     else:
         ax.plot( ppy, ppx, plot0, label='Fixed points', color='#e018bb')
 
-# plotting the starter point
-ax.plot( [Z_0,Z_0], [P_0,P_0], ax.get_zlim(), label='Initial condition', color='g')
-ax1.scatter( max(0,ax.get_xlim()[0]), Z_0, color='g')
-ax1.scatter( max(0,ax.get_xlim()[0]), P_0, label='Initial condition', color='g')
-# ax.scatter( Z_0, P_0, color='g', marker='o', s=25)
-
+# creating legend
+# handleP = mpt.Patch(color='blue')
+# handleH = mpt.Patch(color='orange')
+# ax.legend((handleP,handleH),('Prey','Hunter'))
 ax.legend()
 ax1.legend()
 
-# setting 0 as lower limit for mass axes in 3D plot
-i,j = ax.get_xlim(); ax.set_xlim(0,j)
-i,j = ax.get_ylim(); ax.set_ylim(0,j)
+# setting 0 as lower limit for mass axes in 3D plot and Pmax&Zmax for higher limit
+ax.set_xlim(0,Zmax)
+ax.set_ylim(0,Pmax)
 
 plt.show()
 # plt.savefig('phase-space_%.2fx%.2fx%.2fx%.2f.svg' % (ri, alphai, deltai, di))
