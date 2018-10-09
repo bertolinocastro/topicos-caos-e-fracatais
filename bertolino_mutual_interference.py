@@ -53,8 +53,8 @@ lam = symbols('lambda') # symbol used to compute the eigenvalues 'manually'
 Fn = r*N # Malthusian growth
 # Fn = r*N*(1-N/k) # Logistic model
 # defining Functional response
-# Gnp = a*N*P**(-m)/(1+a*h*N*P**(-m)) # HVH
-Gnp = a*N/(1+a*h*N+a*w*P) # BDA
+Gnp = a*N*P**(-m)/(1+a*h*N*P**(-m)) # HVH
+# Gnp = a*N/(1+a*h*N+a*w*P) # BDA
 # TODO: The system doesn't compute fixed points for Logistic + BDA models
 
 # expression for dN/dt
@@ -67,6 +67,22 @@ lprint(Np)
 print("\ndP/dt")
 lprint(Pp)
 
+
+# getting the isoclines for each variable
+isoN = solve(Np, N)
+isoP = solve(Pp, P)
+
+print("\nIsoclines for N")
+lprint(isoN)
+print("\nIsoclines for P")
+lprint(isoP)
+
+
+res = solve(isoN[1]-isoP[0],N)
+print('\nres')
+lprint(res)
+
+
 # solving the partial equations regarding to the variables x and y
 # here we get the eigenvalues for the pair of O.D.E.
 fixPoints = solve([ Np, # it's equal to dN/dt
@@ -77,15 +93,42 @@ fixPoints = solve([ Np, # it's equal to dN/dt
 print("\n\nfix points:")
 lprint(fixPoints)
 
-# TODO: apply Ppoint and Zpoint to this entries
-# getting the jacobian Matrix
-A = Matrix([Np, Pp])
-B = Matrix([N, P])
-M = A.jacobian(B)
-M.simplify()
 
-print("\n\njacobian matrix:")
-lprint(M)
+
+plot(isoP[0],(N,0.,10.))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exit()
+
+# -----------------
+# IDEA: IGNORING THE ENTIRE FILE FROM NOW ON
+# -----------------
+
+# # TODO: apply Ppoint and Zpoint to this entries
+# # getting the jacobian Matrix
+# A = Matrix([Np, Pp])
+# B = Matrix([N, P])
+# M = A.jacobian(B)
+# M.simplify()
+#
+# print("\n\njacobian matrix:")
+# lprint(M)
 
 # eigenVa = []; eigenVe = []
 # # # eigenvalues for each fix point
@@ -164,9 +207,9 @@ Ppn = Pp
 NnL = lambdify((N,P,r,e,a,q,k,m,h,w), Npn, 'numpy')
 PnL = lambdify((N,P,r,e,a,q,k,m,h,w), Ppn, 'numpy')
 
-print('\n\nNew ODEs')
-lprint(Npn)
-lprint(Ppn)
+# print('\n\nNew ODEs')
+# lprint(Npn)
+# lprint(Ppn)
 
 # Defining the vector of "t"s
 # t = np.linspace(0, 200, 1000)
