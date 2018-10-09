@@ -20,6 +20,8 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpt
 
+import random
+
 init_printing()
 
 def lprint(aaa):
@@ -67,35 +69,6 @@ lprint(Np)
 print("\ndP/dt")
 lprint(Pp)
 
-
-# getting the isoclines for each variable
-isoN = solve(Np, N)
-isoP = solve(Pp, P)
-
-print("\nIsoclines for N")
-lprint(isoN)
-print("\nIsoclines for P")
-lprint(isoP)
-
-
-# res = solve(isoN[1]-isoP[0],N)
-# print('\nres')
-# lprint(res)
-# res[0][0].subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
-# res[0][1].subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
-# lprint(res)
-
-
-# solving the partial equations regarding to the variables x and y
-# here we get the eigenvalues for the pair of O.D.E.
-fixPoints = solve([ Np, # it's equal to dN/dt
-                    Pp], # it's equal to dP/dt
-                    [N, P])
-
-# fix points (points symbolic representing possible situations with the original expression)
-print("\n\nfix points:")
-lprint(fixPoints)
-
 # Defining initial conditions
 r0 = 0.8
 e0 = .4
@@ -106,60 +79,71 @@ m0 = .7
 h0 = .2
 w0 = .5
 
-# expression for dN/dt
-Np_ = (Fn - Gnp*P).subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
-# expression for dP/dt
-Pp_ = (e*Gnp*P - q*P).subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
-
-NpL = lambdify((N,P), Np_, 'numpy')
-PpL = lambdify((N,P), Pp_, 'numpy')
-
-# using just the interior line
-isoN = isoN[-1].subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
-isoP = isoP[-1].subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
-
-isoNL = lambdify((P), isoN, 'numpy')
-isoPL = lambdify((N), isoP, 'numpy')
+# x0 = np.linspace(0., .9, 100)
+var = q
 
 limits = np.linspace(0.,12.,100)
 
-fig = plt.figure(0)
-axx = fig.add_subplot(1,1,1)
+# fig = plt.figure(0)
+# axx = fig.add_subplot(1,1,1)
 
-axx.plot(isoNL(limits),limits, label=r'$iso_N$',color='b')
-axx.plot(limits,isoPL(limits), label=r'$iso_P$',color='g')
+xF = Np.subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0})
+yF = Pp.subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0})
 
-# plotting direction vectors
-ymax = axx.set_ylim(ymin=0)[1] # get axis limits
-xmax = axx.set_xlim(xmin=0)[1]
-nb_points = 20
+# xFL = lambdify((var), xF, 'numpy')
+# yFL = lambdify((var), yF, 'numpy')
 
-xs = np.linspace(0, xmax, nb_points)
-ys = np.linspace(0, ymax, nb_points)
+xFL = solve([xF,yF],[N,P])[0]
+# yFL = solve(yF,N)
 
-X1 , Y1  = np.meshgrid(xs, ys) # create a grid
-DX1 = NpL(X1,Y1)
-DY1 = PpL(X1,Y1)
-M = (np.hypot(DX1,DY1))
-M[M==0]=1.
-DX1 /= M
-DY1 /= M
+print('xfl')
+print(len(xFL))
+lprint(xFL)
 
-axx.quiver(X1,Y1,DX1,DY1,M,pivot='mid')
+# for i in range(len(xFL)):
+#     print('xfl[%d]'%i)
+#     lprint(xFL[i])
+#     print("\n\n\n\n")
+sympy_p1 = sympy.plot(foo)
+sympy_p2 = sympy.plot(bar)
+matplotlib_fig = plt.figure()
+sp1 = matplotlib_fig.add_subplot(121)
+sp2 = matplotlib_fig.add_subplot(122)
+sp1.add_collection(sympy_p1._backend.ax.get_children()[appropriate_index])
+sp2.add_collection(sympy_p2._backend.ax.get_children()[appropriate_index])
+matplotlib_fig.show()
 
-# axx.set_xlim(0,xmax)
-# axx.set_ylim(0,ymax)
+fi = plt.figure(0)
 
-axx.scatter(
-    fixPoints[0][0].subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0}),
-    fixPoints[0][1].subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0}),
-    label=r'$Fixed point$'
-)
+ll = plot(xFL[0],(var,0.1,0.9),show=False)
 
-axx.legend()
-axx.grid()
-axx.set_xlabel('N')
-axx.set_ylabel('P')
-axx.set_title("Isoclines & Direction field")
-plt.savefig('isoclines.svg')
-plt.show()
+axx1 = fi.add_subplot(121)
+axx2 = fi.add_subplot(121)
+
+for i,j in zip(range(len(xFL)),['N','P']):
+    color = "#%06x" % random.randint(0, 0xFFFFFF)
+
+    ll[i].line_color = color
+    # ll[i].label = '$'+latex(xFL[0])+'$'
+    # ll[i].label = 'Ponto fixo %d'%i
+    ll[i].label = '$'+j+'('+str(var)+')$'
+
+    # ll[1].line_color = 'b'
+    # ll[1].label = '$'+latex(xFL[1])+'$'
+
+
+ll.xlabel = "$"+str(var)+"$"
+ll.ylabel = '$N('+str(var)+'),P('+str(var)+')$'
+
+ll.legend = True
+
+ll.show()
+
+# axx.plot(x0, xFL(x0), label=r'$N$')
+# axx.plot(x0, yFL(x0), label=r'$P$')
+#
+#
+#
+# axx.legend()
+#
+# plt.show()
