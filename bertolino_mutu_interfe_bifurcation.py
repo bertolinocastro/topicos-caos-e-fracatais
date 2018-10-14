@@ -19,6 +19,7 @@ from scipy import integrate
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpt
+from mpl_toolkits.mplot3d import Axes3D
 
 import random
 
@@ -69,6 +70,25 @@ lprint(Np)
 print("\ndP/dt")
 lprint(Pp)
 
+# getting the isoclines for each variable
+isoN = solve(Np, N)
+isoP = solve(Pp, P)
+
+print("\nIsoclines for N")
+lprint(isoN)
+print("\nIsoclines for P")
+lprint(isoP)
+
+# solving the partial equations regarding to the variables x and y
+# here we get the eigenvalues for the pair of O.D.E.
+fixPoints = solve([ Np, # it's equal to dN/dt
+                    Pp], # it's equal to dP/dt
+                    [N, P])
+
+# fix points (points symbolic representing possible situations with the original expression)
+print("\n\nfix points:")
+lprint(fixPoints)
+
 # Defining initial conditions
 r0 = 0.8
 e0 = .4
@@ -82,7 +102,8 @@ w0 = .5
 # x0 = np.linspace(0., .9, 100)
 var = q
 
-limits = np.linspace(0.,12.,100)
+zlim = (1.5,2.5)
+
 
 # fig = plt.figure(0)
 # axx = fig.add_subplot(1,1,1)
@@ -90,60 +111,122 @@ limits = np.linspace(0.,12.,100)
 xF = Np.subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0})
 yF = Pp.subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0})
 
-# xFL = lambdify((var), xF, 'numpy')
-# yFL = lambdify((var), yF, 'numpy')
+# using just the interior line
+isoN = isoN[-1].subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0})
+isoP = isoP[-1].subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0})
 
-xFL = solve([xF,yF],[N,P])[0]
-# yFL = solve(yF,N)
-
-print('xfl')
-print(len(xFL))
-lprint(xFL)
-
-# for i in range(len(xFL)):
-#     print('xfl[%d]'%i)
-#     lprint(xFL[i])
-#     print("\n\n\n\n")
-sympy_p1 = sympy.plot(foo)
-sympy_p2 = sympy.plot(bar)
-matplotlib_fig = plt.figure()
-sp1 = matplotlib_fig.add_subplot(121)
-sp2 = matplotlib_fig.add_subplot(122)
-sp1.add_collection(sympy_p1._backend.ax.get_children()[appropriate_index])
-sp2.add_collection(sympy_p2._backend.ax.get_children()[appropriate_index])
-matplotlib_fig.show()
-
-fi = plt.figure(0)
-
-ll = plot(xFL[0],(var,0.1,0.9),show=False)
-
-axx1 = fi.add_subplot(121)
-axx2 = fi.add_subplot(121)
-
-for i,j in zip(range(len(xFL)),['N','P']):
-    color = "#%06x" % random.randint(0, 0xFFFFFF)
-
-    ll[i].line_color = color
-    # ll[i].label = '$'+latex(xFL[0])+'$'
-    # ll[i].label = 'Ponto fixo %d'%i
-    ll[i].label = '$'+j+'('+str(var)+')$'
-
-    # ll[1].line_color = 'b'
-    # ll[1].label = '$'+latex(xFL[1])+'$'
-
-
-ll.xlabel = "$"+str(var)+"$"
-ll.ylabel = '$N('+str(var)+'),P('+str(var)+')$'
-
-ll.legend = True
-
-ll.show()
-
-# axx.plot(x0, xFL(x0), label=r'$N$')
-# axx.plot(x0, yFL(x0), label=r'$P$')
+# # expression for dN/dt
+# Np_ = Np.subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
+# # expression for dP/dt
+# Pp_ = (e*Gnp*P - q*P).subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
 #
+NpL = lambdify((N,P,var), xF, 'numpy')
+PpL = lambdify((N,P,var), yF, 'numpy')
+
+FL = solve([xF,yF],[N,P])[0]
+
+xFL = lambdify((var), FL[0], 'numpy')
+yFL = lambdify((var), FL[1], 'numpy')
+
+print('fl')
+print(len(FL))
+lprint(FL)
+
+isoNL = lambdify((P,var), isoN, 'numpy')
+isoPL = lambdify((N,var), isoP, 'numpy')
+
+# # plot 2d mass vs param
+# fi = plt.figure(0)
 #
+# axx1 = fi.add_subplot(211)
+# axx2 = fi.add_subplot(212)
 #
-# axx.legend()
+# axx1.plot(limits, xFL(limits), color="#%06x" % random.randint(0, 0xFFFFFF))
+# axx2.plot(limits, yFL(limits), color="#%06x" % random.randint(0, 0xFFFFFF))
+#
+# axx1.set_xlabel('$'+str(var)+'$')
+# axx1.set_xlabel('') # the string is empty to prevent overlap on the plot
+# axx2.set_xlabel('$'+str(var)+'$')
+#
+# axx1.set_ylabel('$N('+str(var)+')$')
+# axx2.set_ylabel('$P('+str(var)+')$')
 #
 # plt.show()
+
+# TODO: checar esse campo vetorial para os parâmetros...
+# as derivadas dependem de três variáveis, o que complica muito a solução bi-dimensional
+# o jeito é utilizar um plot 3D ou utilizar um valor fixado de P em N e N em P...
+
+
+qwe = 0
+for i in np.linspace(zlim[0],zlim[1],10):
+    print('%s = %.3f\n' %(str(var),i))
+    fig = plt.figure()
+
+    ax = fig.add_subplot(1, 1, 1)
+
+    center = xFL(i),yFL(i)
+
+    # limy = np.linspace(0.1, 2*center[0], 100)
+    # limx = np.linspace(0.1, 2*center[1], 100)
+    limx = np.linspace(0.1, 10000, 1000)
+    limy = np.linspace(0.1, 10000, 1000)
+
+    # print(isoNL(limits,i),'\n\n\n\n')
+    # print(isoPL(limits,i),'\n\n\n\n')
+
+    ax.plot(isoNL(limx,i),limx, label=r'$iso_N$',color='b')
+    ax.plot(limy,isoPL(limy,i), label=r'$iso_P$',color='g')
+
+    # ax.scatter(xFL(i),yFL(i), label='$Fixed point$')
+    ax.scatter(center[0], center[1], label='$Fixed point$')
+
+    # plotting direction vectors
+    # if np.isnan(center).any() or np.isinf(center).any():
+    #     xlim = ax.set_xlim(left=0.) # get axis limits
+    #     ylim = ax.set_ylim(bottom=0.) # get axis limits
+    # else:
+    #     xlim = ax.set_xlim(0., 2*center[0]) # get axis limits
+    #     ylim = ax.set_ylim(0., 2*center[1]) # get axis limits
+    xlim = ax.set_xlim(-100.0, 10000) # get axis limits
+    ylim = ax.set_ylim(-100.0, 10000) # get axis limits
+
+    nb_points = 20
+
+    xs = np.linspace(xlim[0], xlim[1], nb_points)
+    ys = np.linspace(ylim[0], ylim[1], nb_points)
+
+    X1, Y1  = np.meshgrid(xs, ys) # create a grid
+    DX1 = NpL(X1,Y1,i)
+    DY1 = PpL(X1,Y1,i)
+    M = (np.hypot(DX1,DY1))
+    M[M==0]=1.
+    DX1 /= M
+    DY1 /= M
+
+    # print('\n\n\n\n')
+    # print(X1)
+    # print('\n\n\n\n')
+    # print(Y1)
+    # print('\n\n\n\n')
+    # print(i)
+    # print('\n\n\n\n')
+    # print(DX1)
+    # print('\n\n\n\n')
+    # print(DY1)
+    # print('\n\n\n\n')
+
+    ax.quiver(X1,Y1,DX1,DY1,M,units='dots',pivot='mid')
+
+    ax.set_xlabel('$N$')
+    ax.set_ylabel('$P$')
+    ax.set_title("Isoclines & Direction field\nparam $%s$ = %.3f"%(str(var),i))
+
+    ax.legend()
+    ax.grid()
+    # plt.show()
+    # plt.savefig('isoclines.svg')
+    # fig.savefig('bifurcation/phase_space_%s=%.3f.png'%(str(var),i))
+    fig.savefig('bifurcation/phase_space_%s=%03d.png'%(str(var),qwe))
+
+    qwe+=1
