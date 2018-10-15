@@ -29,6 +29,9 @@ def lprint(aaa):
     print()
     pprint(aaa, use_unicode=True)
 
+def randcolor():
+    return "#%06x" % random.randint(0, 0xFFFFFF)
+
 # constants:
 # r - prey growth tax (same as the canonical LV model)
 # e - predator's reproduction tax per prey eaten (a.k.a. efficiency)
@@ -53,11 +56,11 @@ N, P, r, e, a, q, k, m, h, w = symbols('N P r e a q k m h w', negative=False)
 lam = symbols('lambda') # symbol used to compute the eigenvalues 'manually'
 
 # defining Functional "...?"
-Fn = r*N # Malthusian growth
-# Fn = r*N*(1-N/k) # Logistic model
+# Fn = r*N # Malthusian growth
+Fn = r*N*(1-N/k) # Logistic model
 # defining Functional response
-Gnp = a*N*P**(-m)/(1+a*h*N*P**(-m)) # HVH
-# Gnp = a*N/(1+a*h*N+a*w*P) # BDA
+# Gnp = a*N*P**(-m)/(1+a*h*N*P**(-m)) # HVH
+Gnp = a*N/(1+a*h*N+a*w*P) # BDA
 # TODO: The system doesn't compute fixed points for Logistic + BDA models
 
 # expression for dN/dt
@@ -104,59 +107,37 @@ var = q
 
 zlim = (1.5,2.5)
 
-
-# fig = plt.figure(0)
-# axx = fig.add_subplot(1,1,1)
-
 xF = Np.subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0})
 yF = Pp.subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0})
 
 # using just the interior line
-isoN = isoN[-1].subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0})
-isoP = isoP[-1].subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0})
+isoN = [isoNi.subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0}) for isoNi in isoN]
+isoP = [isoPi.subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0}) for isoPi in isoP]
 
-# # expression for dN/dt
-# Np_ = Np.subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
-# # expression for dP/dt
-# Pp_ = (e*Gnp*P - q*P).subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
-#
 NpL = lambdify((N,P,var), xF, 'numpy')
 PpL = lambdify((N,P,var), yF, 'numpy')
 
-FL = solve([xF,yF],[N,P])[0]
+lprint(xF)
+lprint(yF)
 
-xFL = lambdify((var), FL[0], 'numpy')
-yFL = lambdify((var), FL[1], 'numpy')
+# FL = solve([xF,yF],[N,P])[0]
+FL = solve([xF,yF],[N,P])
+# lprint(FL)
+# exit()
 
-print('fl')
-print(len(FL))
-lprint(FL)
+xFL = [lambdify((var), FLi[0], 'numpy') for FLi in FL]
+yFL = [lambdify((var), FLi[1], 'numpy') for FLi in FL]
 
-isoNL = lambdify((P,var), isoN, 'numpy')
-isoPL = lambdify((N,var), isoP, 'numpy')
+# print('fl')
+# print(len(FL))
+# lprint(FL)
 
-# # plot 2d mass vs param
-# fi = plt.figure(0)
-#
-# axx1 = fi.add_subplot(211)
-# axx2 = fi.add_subplot(212)
-#
-# axx1.plot(limits, xFL(limits), color="#%06x" % random.randint(0, 0xFFFFFF))
-# axx2.plot(limits, yFL(limits), color="#%06x" % random.randint(0, 0xFFFFFF))
-#
-# axx1.set_xlabel('$'+str(var)+'$')
-# axx1.set_xlabel('') # the string is empty to prevent overlap on the plot
-# axx2.set_xlabel('$'+str(var)+'$')
-#
-# axx1.set_ylabel('$N('+str(var)+')$')
-# axx2.set_ylabel('$P('+str(var)+')$')
-#
-# plt.show()
+isoNL = [lambdify((P,var), isoNi, 'numpy') for isoNi in isoN]
+isoPL = [lambdify((N,var), isoPi, 'numpy') for isoPi in isoP]
 
 # TODO: checar esse campo vetorial para os parâmetros...
 # as derivadas dependem de três variáveis, o que complica muito a solução bi-dimensional
 # o jeito é utilizar um plot 3D ou utilizar um valor fixado de P em N e N em P...
-
 
 qwe = 0
 for i in np.linspace(zlim[0],zlim[1],40):
@@ -166,37 +147,48 @@ for i in np.linspace(zlim[0],zlim[1],40):
 
     print('%s = %.3f\n' %(str(var),i))
 
-    center = xFL(i),yFL(i)
+    center = (0,0)
+    for xFLi,yFLi in zip(xFL,yFL):
+        pt = xFLi(i),yFLi(i)
 
-    # limy = np.linspace(0.1, 2*center[0], 100)
-    # limx = np.linspace(0.1, 2*center[1], 100)
-    limx = np.linspace(-100, 100000, 10000)
-    limy = np.linspace(-100, 100000, 10000)
+        if np.isnan(pt).any() or np.isinf(pt).any():
+            fig.clf()
+            continue
 
-    # print(isoNL(limits,i),'\n\n\n\n')
-    # print(isoPL(limits,i),'\n\n\n\n')
+        ax.scatter(pt[0], pt[1], label='$Fixed point$')
 
-    ax.plot(isoNL(limx,i),limx, label=r'$iso_N$',color='b')
-    ax.plot(limy,isoPL(limy,i), label=r'$iso_P$',color='g')
+        if pt[0] > center[0]:
+            center[0] = pt[0]
+        if pt[1] > center[1]:
+            center[1] = pt[1]
 
-    # ax.scatter(xFL(i),yFL(i), label='$Fixed point$')
-    ax.scatter(center[0], center[1], label='$Fixed point$')
+    # ----
 
-    # plotting direction vectors
-    # if np.isnan(center).any() or np.isinf(center).any():
-    #     xlim = ax.set_xlim(left=0.) # get axis limits
-    #     ylim = ax.set_ylim(bottom=0.) # get axis limits
-    # else:
-    #     xlim = ax.set_xlim(0., 2*center[0]) # get axis limits
-    #     ylim = ax.set_ylim(0., 2*center[1]) # get axis limits
-    # xlim = ax.set_xlim(-100.0, 100000) # get axis limits
-    # ylim = ax.set_ylim(-100.0, 100000) # get axis limits
+    nb_points = 8
 
-    xlim = ax.get_xlim() # get axis limits
-    ylim = ax.get_ylim() # get axis limits
+    xs = np.linspace(0, 4*center[0], nb_points)
+    ys = np.linspace(0, 4*center[1], nb_points)
 
-    nb_points = 20
+    nit = 2500
+    pathN = np.zeros(nit)
+    pathP = np.zeros(nit)
 
+    step=0.01
+    for n in xs:
+        for p in ys:
+            pathN[0] = n
+            pathP[0] = p
+            for it in range(1,nit):
+                pathN[it] = pathN[it-1] + step*NpL(pathN[it-1],pathP[it-1],i)
+                pathP[it] = pathP[it-1] + step*PpL(pathN[it-1],pathP[it-1],i)
+
+            ax.plot(pathN,pathP,'k--',lw=0.4)
+
+    xlim = ax.set_xlim(0., 4*center[0]) # get axis limits
+    ylim = ax.set_ylim(0., 4*center[1]) # get axis limits
+
+
+    nb_points = 30
     xs = np.linspace(xlim[0], xlim[1], nb_points)
     ys = np.linspace(ylim[0], ylim[1], nb_points)
 
@@ -207,32 +199,32 @@ for i in np.linspace(zlim[0],zlim[1],40):
     M[M==0]=1.
     DX1 /= M
     DY1 /= M
+    ax.quiver(X1,Y1,DX1,DY1,M,units='dots',pivot='mid',width=0.5)
 
-    # print('\n\n\n\n')
-    # print(X1)
-    # print('\n\n\n\n')
-    # print(Y1)
-    # print('\n\n\n\n')
-    # print(i)
-    # print('\n\n\n\n')
-    # print(DX1)
-    # print('\n\n\n\n')
-    # print(DY1)
-    # print('\n\n\n\n')
 
-    ax.quiver(X1,Y1,DX1,DY1,M,units='dots',pivot='mid')
+    nb_points = 100
+    xs = np.linspace(0, 4*center[0], nb_points)
+    ys = np.linspace(0, 4*center[1], nb_points)
 
-    ax.set_xlabel('$N$')
-    ax.set_ylabel('$P$')
+    for isoNLi in isoNL:
+        ax.plot(isoNLi(ys,i),ys, label=r'$iso_N$',color='b')
+    for isoPLi in isoPL:
+        ax.plot(xs,isoPLi(xs,i), label=r'$iso_P$',color='g')
+
+    # ax.xaxis.label.set_color('b')
+    # ax.yaxis.label.set_color('g')
+
+    ax.set_xlabel('$N$',color='b',fontweight='900')
+    ax.set_ylabel('$P$',color='g',fontweight='900')
     ax.set_title("Isoclines & Direction field\nparam $%s$ = %.3f"%(str(var),i))
 
-    ax.legend()
-    ax.grid()
-    # plt.show()
-    # plt.savefig('isoclines.svg')
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
     # fig.savefig('bifurcation/phase_space_%s=%.3f.png'%(str(var),i))
     fig.savefig('bifurcation/phase_space_%s=%03d.png'%(str(var),qwe))
 
-    fig.close()
+    fig.clf()
 
     qwe+=1
