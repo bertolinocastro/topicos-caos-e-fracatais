@@ -77,11 +77,11 @@ N, P, r, e, a, q, k, m, h, w = symbols('N P r e a q k m h w', negative=False)
 lam = symbols('lambda') # symbol used to compute the eigenvalues 'manually'
 
 # defining Functional "...?"
-modelF = 'MG'; Fn = r*N # Malthusian growth
-# modelF = 'LM'; Fn = r*N*(1-N/k) # Logistic model
+# modelF = 'MG'; Fn = r*N # Malthusian growth
+modelF = 'LM'; Fn = r*N*(1-N/k) # Logistic model
 # defining Functional response
-modelG = 'HVH'; Gnp = a*N*P**(-m)/(1+a*h*N*P**(-m)) # HVH
-# modelG = 'BDA'; Gnp = a*N/(1+a*h*N+a*w*P) # BDA
+# modelG = 'HVH'; Gnp = a*N*P**(-m)/(1+a*h*N*P**(-m)) # HVH
+modelG = 'BDA'; Gnp = a*N/(1+a*h*N+a*w*P) # BDA
 # TODO: The system doesn't compute fixed points for Logistic + HVH models
 
 # Defining initial conditions
@@ -95,11 +95,11 @@ h0 = .2
 w0 = .5
 
 # about the parameter plot
-zlim = (-1, 5)
-frames = 100
+zlim = (-.3, 2)
+frames = 400
 
-q0 = q
-var = q
+e0 = e
+var = e
 
 # printing desired output
 helloWorld()
