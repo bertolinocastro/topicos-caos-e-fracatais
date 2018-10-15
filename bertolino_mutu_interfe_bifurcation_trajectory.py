@@ -31,6 +31,7 @@ init_printing()
 def lprint(aaa):
     print()
     pprint(aaa, use_unicode=True)
+    # print(latex(aaa))
     sys.stdout.flush()
 
 def randcolor():
@@ -79,8 +80,8 @@ lam = symbols('lambda') # symbol used to compute the eigenvalues 'manually'
 modelF = 'MG'; Fn = r*N # Malthusian growth
 # modelF = 'LM'; Fn = r*N*(1-N/k) # Logistic model
 # defining Functional response
-# modelG = 'HVH'; Gnp = a*N*P**(-m)/(1+a*h*N*P**(-m)) # HVH
-modelG = 'BDA'; Gnp = a*N/(1+a*h*N+a*w*P) # BDA
+modelG = 'HVH'; Gnp = a*N*P**(-m)/(1+a*h*N*P**(-m)) # HVH
+# modelG = 'BDA'; Gnp = a*N/(1+a*h*N+a*w*P) # BDA
 # TODO: The system doesn't compute fixed points for Logistic + HVH models
 
 # Defining initial conditions
@@ -94,11 +95,11 @@ h0 = .2
 w0 = .5
 
 # about the parameter plot
-zlim = (1.4, 2.2)
+zlim = (-1, 5)
 frames = 100
 
-r0 = r
-var = r
+q0 = q
+var = q
 
 # printing desired output
 helloWorld()
@@ -174,7 +175,7 @@ lprint(isoP)
 # o jeito é utilizar um plot 3D ou utilizar um valor fixado de P em N e N em P...
 
 qwe = 0
-for i in np.linspace(zlim[0],zlim[1],40):
+for i in np.linspace(zlim[0],zlim[1],frames):
     fig = plt.figure()
 
     ax = fig.add_subplot(1, 1, 1)
@@ -184,7 +185,7 @@ for i in np.linspace(zlim[0],zlim[1],40):
     center = [0,0]
     for xFLi,yFLi in zip(xFL,yFL):
         pt = xFLi(i),yFLi(i)
-        print('\nsolution: (%.4f,%.4f)'%pt)
+        print('\nsolution: (%.4f %+.4fi, %.4f %+.4fi)'%(pt[0].real,pt[0].imag,pt[1].real,pt[1].imag))
 
         if np.isnan(pt).any() or np.isinf(pt).any():
             fig.savefig('bifurcation/%s_%s/%s/phase_space_%s=%03d.png'%(modelF,modelG,str(var),str(var),qwe))
@@ -261,9 +262,10 @@ for i in np.linspace(zlim[0],zlim[1],40):
 
     deltax = 0.01*(xlim[1]-xlim[0])
     deltay = 0.01*(ylim[1]-ylim[0])
-    # ax.set_xlim(-deltax + xlim[0], deltax + 4*center[1])
     ax.set_xlim(-deltax + xlim[0], deltax + xlim[1])
     ax.set_ylim(-deltay + ylim[0], deltay + ylim[1])
+    # ax.set_xlim(-deltax - xlim[1], deltax + 40*xlim[1])
+    # ax.set_ylim(-deltay - ylim[1], deltay + 40*ylim[1])
 
     ax.set_xlabel('$N$',color='b',fontweight='900')
     ax.set_ylabel('$P$',color='g',fontweight='900')
