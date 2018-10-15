@@ -4,5 +4,5 @@ set -x
 
 file=$1
 
-python3 -O -m py_compile $file
-python3 __pycache__/$file.cpython-36.opt-1.pyc 
+python3 -OO -m py_compile $file
+python3 __pycache__/${file::-3}.cpython-36.opt-1.pyc

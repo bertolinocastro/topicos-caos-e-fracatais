@@ -23,14 +23,34 @@ from mpl_toolkits.mplot3d import Axes3D
 
 import random
 
+# setting this file as stdout dump
+import sys
+
 init_printing()
 
 def lprint(aaa):
     print()
     pprint(aaa, use_unicode=True)
+    sys.stdout.flush()
 
 def randcolor():
     return "#%06x" % random.randint(0, 0xFFFFFF)
+
+def helloWorld():
+    fptr = open('bifurcation/%s_%s/%s/output.txt'%(modelF,modelG,str(var)), 'w')
+    sys.stdout = fptr
+    sys.stderr = fptr
+    print('\nSystem functional properties: ',end='')
+    try:
+        mg
+        print('MG ',end='')
+    except:
+        print('LM ',end='')
+    try:
+        hvh
+        print('+ HVH\n')
+    except:
+        print('+ BDA\n')
 
 # constants:
 # r - prey growth tax (same as the canonical LV model)
@@ -56,12 +76,32 @@ N, P, r, e, a, q, k, m, h, w = symbols('N P r e a q k m h w', negative=False)
 lam = symbols('lambda') # symbol used to compute the eigenvalues 'manually'
 
 # defining Functional "...?"
-# Fn = r*N # Malthusian growth
-Fn = r*N*(1-N/k) # Logistic model
+modelF = 'MG'; Fn = r*N # Malthusian growth
+# modelF = 'LM'; Fn = r*N*(1-N/k) # Logistic model
 # defining Functional response
-# Gnp = a*N*P**(-m)/(1+a*h*N*P**(-m)) # HVH
-Gnp = a*N/(1+a*h*N+a*w*P) # BDA
-# TODO: The system doesn't compute fixed points for Logistic + BDA models
+# modelG = 'HVH'; Gnp = a*N*P**(-m)/(1+a*h*N*P**(-m)) # HVH
+modelG = 'BDA'; Gnp = a*N/(1+a*h*N+a*w*P) # BDA
+# TODO: The system doesn't compute fixed points for Logistic + HVH models
+
+# Defining initial conditions
+r0 = 0.8
+e0 = .4
+a0 = .5
+q0 = .2
+k0 = 100
+m0 = .7
+h0 = .2
+w0 = .5
+
+# about the parameter plot
+zlim = (1.4, 2.2)
+frames = 100
+
+r0 = r
+var = r
+
+# printing desired output
+helloWorld()
 
 # expression for dN/dt
 Np = Fn - Gnp*P
@@ -92,37 +132,26 @@ fixPoints = solve([ Np, # it's equal to dN/dt
 print("\n\nfix points:")
 lprint(fixPoints)
 
-# Defining initial conditions
-r0 = 0.8
-e0 = .4
-a0 = .5
-q0 = .3
-k0 = 100
-m0 = .7
-h0 = .2
-w0 = .5
 
-# x0 = np.linspace(0., .9, 100)
-var = q
-
-zlim = (1.5,2.5)
-
-xF = Np.subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0})
-yF = Pp.subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0})
+xF = Np.subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
+yF = Pp.subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
 
 # using just the interior line
-isoN = [isoNi.subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0}) for isoNi in isoN]
-isoP = [isoPi.subs({r:r0,e:e0,a:a0,q:q,k:k0,m:m0,h:h0,w:w0}) for isoPi in isoP]
+isoN = [isoNi.subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0}) for isoNi in isoN]
+isoP = [isoPi.subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0}) for isoPi in isoP]
 
 NpL = lambdify((N,P,var), xF, 'numpy')
 PpL = lambdify((N,P,var), yF, 'numpy')
 
+print('\nNp numeric')
 lprint(xF)
+print('\nPp numeric')
 lprint(yF)
 
-# FL = solve([xF,yF],[N,P])[0]
+
+print('\nNumeric fixed points')
 FL = solve([xF,yF],[N,P])
-# lprint(FL)
+lprint(FL)
 # exit()
 
 xFL = [lambdify((var), FLi[0], 'numpy') for FLi in FL]
@@ -135,6 +164,11 @@ yFL = [lambdify((var), FLi[1], 'numpy') for FLi in FL]
 isoNL = [lambdify((P,var), isoNi, 'numpy') for isoNi in isoN]
 isoPL = [lambdify((N,var), isoPi, 'numpy') for isoPi in isoP]
 
+print('\nN numeric isoclines:')
+lprint(isoN)
+print('\nP numeric isoclines:')
+lprint(isoP)
+
 # TODO: checar esse campo vetorial para os parâmetros...
 # as derivadas dependem de três variáveis, o que complica muito a solução bi-dimensional
 # o jeito é utilizar um plot 3D ou utilizar um valor fixado de P em N e N em P...
@@ -145,23 +179,31 @@ for i in np.linspace(zlim[0],zlim[1],40):
 
     ax = fig.add_subplot(1, 1, 1)
 
-    print('%s = %.3f\n' %(str(var),i))
+    print('\n#%s\nframe = %03d -> %s = %.3f\n' %('-'*40,qwe,str(var),i))
 
-    center = (0,0)
+    center = [0,0]
     for xFLi,yFLi in zip(xFL,yFL):
         pt = xFLi(i),yFLi(i)
+        print('\nsolution: (%.4f,%.4f)'%pt)
 
         if np.isnan(pt).any() or np.isinf(pt).any():
-            fig.clf()
+            fig.savefig('bifurcation/%s_%s/%s/phase_space_%s=%03d.png'%(modelF,modelG,str(var),str(var),qwe))
             continue
 
         ax.scatter(pt[0], pt[1], label='$Fixed point$')
 
+        # center = max(*center,*pt)
+        # center = [center,center]
         if pt[0] > center[0]:
             center[0] = pt[0]
         if pt[1] > center[1]:
             center[1] = pt[1]
 
+    # setting arbitrary values for center if it yet is null
+    if center[0] == 0:
+        center[0] = 10
+    if center[1] == 0:
+        center[1] = 10
     # ----
 
     nb_points = 8
@@ -207,12 +249,21 @@ for i in np.linspace(zlim[0],zlim[1],40):
     ys = np.linspace(0, 4*center[1], nb_points)
 
     for isoNLi in isoNL:
-        ax.plot(isoNLi(ys,i),ys, label=r'$iso_N$',color='b')
+        res = isoNLi(ys,i)
+        if not hasattr(res, '__len__'):
+            res = res*np.ones(nb_points)
+        ax.plot(res,ys, label=r'$iso_N$',color='b')
     for isoPLi in isoPL:
-        ax.plot(xs,isoPLi(xs,i), label=r'$iso_P$',color='g')
+        res = isoPLi(xs,i)
+        if not hasattr(res, '__len__'):
+            res = res*np.ones(nb_points)
+        ax.plot(xs,res, label=r'$iso_P$',color='g')
 
-    # ax.xaxis.label.set_color('b')
-    # ax.yaxis.label.set_color('g')
+    deltax = 0.01*(xlim[1]-xlim[0])
+    deltay = 0.01*(ylim[1]-ylim[0])
+    # ax.set_xlim(-deltax + xlim[0], deltax + 4*center[1])
+    ax.set_xlim(-deltax + xlim[0], deltax + xlim[1])
+    ax.set_ylim(-deltay + ylim[0], deltay + ylim[1])
 
     ax.set_xlabel('$N$',color='b',fontweight='900')
     ax.set_ylabel('$P$',color='g',fontweight='900')
@@ -223,7 +274,7 @@ for i in np.linspace(zlim[0],zlim[1],40):
     ax.set_yticklabels([])
     ax.set_xticklabels([])
     # fig.savefig('bifurcation/phase_space_%s=%.3f.png'%(str(var),i))
-    fig.savefig('bifurcation/phase_space_%s=%03d.png'%(str(var),qwe))
+    fig.savefig('bifurcation/%s_%s/%s/phase_space_%s=%03d.png'%(modelF,modelG,str(var),str(var),qwe))
 
     fig.clf()
 
