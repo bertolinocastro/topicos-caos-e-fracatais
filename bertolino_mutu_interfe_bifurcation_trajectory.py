@@ -28,8 +28,9 @@ import sys
 
 init_printing()
 
-def lprint(aaa):
-    print()
+def lprint(aaa,start=True):
+    if start:
+        print()
     pprint(aaa, use_unicode=True)
     # print(latex(aaa))
     sys.stdout.flush()
@@ -96,10 +97,10 @@ w0 = .5
 
 # about the parameter plot
 zlim = (-.3, 2)
-frames = 400
+frames = 100
 
-e0 = e
-var = e
+m0 = m
+var = m
 
 # printing desired output
 helloWorld()
@@ -125,14 +126,77 @@ lprint(isoP)
 
 # solving the partial equations regarding to the variables x and y
 # here we get the eigenvalues for the pair of O.D.E.
-fixPoints = solve([ Np, # it's equal to dN/dt
-                    Pp], # it's equal to dP/dt
+fixPoints = solve([ Np.subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0}), # it's equal to dN/dt
+                    Pp.subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})], # it's equal to dP/dt
                     [N, P])
 
 # fix points (points symbolic representing possible situations with the original expression)
 print("\n\nfix points:")
 lprint(fixPoints)
 
+solFixPt = [(x.subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0}),
+            y.subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})) for x,y in fixPoints]
+print('\n\nNumeric Fixed points')
+lprint(solFixPt)
+
+for i in range(len(solFixPt)):
+    for j in range(i+1,len(solFixPt)):
+        res = (solve(solFixPt[i][0]-solFixPt[j][0], var),
+              solve(solFixPt[i][1]-solFixPt[j][1], var))
+        print('\n\nPitch fork bifurcation:')
+        lprint(res)
+
+# getting the jacobian Matrix
+J = Matrix([Np, Pp]).jacobian([N,P]).subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
+J.simplify()
+
+print("\n\njacobian matrix:")
+lprint(J)
+
+eigenVa = []; eigenVe = []; eigenStr = []
+# # # eigenvalues for each fix point
+# for N0,P0 in solFixPt:
+#     print("\n\nfor the points:")
+#     lprint((N0, P0))
+#     # applying the fixed point value to the jabocian entries
+#     print("\n\nits jacobian:")
+#     R = J.subs({N:N0, P:P0})
+#     R.simplify()
+#     lprint(R)
+#
+#     eigs = solve(R.charpoly(lam),lam)
+#     eigenVa.append(eigs)
+#     print('\n\nits eigenvalues:')
+#     lprint(eigs)
+#
+#     n1, p1 = eigs
+#     # checking stability for this point
+#     if isinstance(n1, complex) and isinstance(p1, complex):
+#         if n1.imag != 0 or p1.imag != 0:
+#             if n1.real == p1.real and n1.imag == -p1.imag: # conjugated complex
+#                 if n1.real > 0:
+#                     eigenStr = '\nhyperbolic focus -> instable'
+#                 elif n1.real < 0:
+#                     eigenStr = '\nhyperbolic focus -> asymptotically instable'
+#                 else:
+#                     eigenStr = '\ncenter elypsis -> stable'
+#             else:
+#                 eigenStr = '\n\nje ne sais pas...'
+#     else: # real
+#         if n1.real*p1.real == 0:
+#             eigenStr = '\ndegenerated elypsis'
+#         elif n1.real == p1.real and n1.real != 0:
+#             if n1.real > 0:
+#                 eigenStr = '\ninflected node -> instable'
+#             else:
+#                 eigenStr = '\ninflected node -> stable'
+#         else:
+#             if n1.real*p1.real < 0:
+#                 eigenStr = '\nsaddle -> instable'
+#             elif n1.real > 0: # if both are positive
+#                 eigenStr = '\nnode -> instable'
+#             else: # if both are negative
+#                 eigenStr = '\nnode -> asymptotically stable'
 
 xF = Np.subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
 yF = Pp.subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:w0})
@@ -191,7 +255,64 @@ for i in np.linspace(zlim[0],zlim[1],frames):
             fig.savefig('bifurcation/%s_%s/%s/phase_space_%s=%03d.png'%(modelF,modelG,str(var),str(var),qwe))
             continue
 
-        ax.scatter(pt[0], pt[1], label='$Fixed point$')
+        ########## Checking fixed points stability
+        # print("\n\nfor the points:")
+        # lprint((pt[0], pt[1]))
+        # applying the fixed point value to the jabocian entries
+        # print("\n\nits jacobian:")
+        R = J.subs({N:pt[0], P:pt[1], var:i})
+        R.simplify()
+        # lprint(R)
+
+        eigs = solve(R.charpoly(lam),lam)
+        # eigenVa.append(eigs)
+        print('its eigenvalues: ',end='')
+        lprint(eigs)
+
+        n1, p1 = eigs
+        print(type(n1),type(p1))
+        # checking stability for this point
+        if isinstance(n1, complex) and isinstance(p1, complex):
+            if n1.imag != 0 or p1.imag != 0:
+                if n1.real == p1.real and n1.imag == -p1.imag: # conjugated complex
+                    if n1.real > 0:
+                        print('hyperbolic focus -> instable')
+                        msg = 'hyperbolic focus -> instable'
+                    elif n1.real < 0:
+                        print('hyperbolic focus -> asymptotically instable')
+                        msg = 'hyperbolic focus -> asymptotically instable'
+                    else:
+                        print('center elypsis -> stable')
+                        msg = 'center elypsis -> stable'
+                else:
+                    print('je ne sais pas...')
+                    msg = 'nje ne sais pas...'
+        else: # real
+            if n1*p1 == 0:
+                print('degenerated elypsis')
+                msg = 'degenerated elypsis'
+            elif n1 == p1 and n1 != 0:
+                if n1 > 0:
+                    print('inflected node -> instable')
+                    msg = 'inflected node -> instable'
+                else:
+                    print('inflected node -> stable')
+                    msg = 'inflected node -> stable'
+            else:
+                if n1*p1 < 0:
+                    print('saddle -> instable')
+                    msg = 'saddle -> instable'
+                elif n1 > 0: # if both are positive
+                    print('node -> instable')
+                    msg = 'node -> instable'
+                else: # if both are negative
+                    print('node -> asymptotically stable')
+                    msg = 'node -> asymptotically stable'
+        ########## END of Checking fixed points stability
+
+
+        # ax.scatter(pt[0], pt[1], label='$Fixed point$')
+        ax.scatter(pt[0], pt[1], label='$%s$'%msg)
 
         # center = max(*center,*pt)
         # center = [center,center]
@@ -212,7 +333,7 @@ for i in np.linspace(zlim[0],zlim[1],frames):
     xs = np.linspace(0, 4*center[0], nb_points)
     ys = np.linspace(0, 4*center[1], nb_points)
 
-    nit = 2500
+    nit = 6000
     pathN = np.zeros(nit)
     pathP = np.zeros(nit)
 
@@ -225,7 +346,8 @@ for i in np.linspace(zlim[0],zlim[1],frames):
                 pathN[it] = pathN[it-1] + step*NpL(pathN[it-1],pathP[it-1],i)
                 pathP[it] = pathP[it-1] + step*PpL(pathN[it-1],pathP[it-1],i)
 
-            ax.plot(pathN,pathP,'k--',lw=0.4)
+            ax.plot(pathN[:-1000],pathP[:-1000],'k--',lw=0.4)
+            ax.plot(pathN[-1000:],pathP[-1000:],'r-',lw=0.4)
 
     xlim = ax.set_xlim(0., 4*center[0]) # get axis limits
     ylim = ax.set_ylim(0., 4*center[1]) # get axis limits
@@ -253,12 +375,14 @@ for i in np.linspace(zlim[0],zlim[1],frames):
         res = isoNLi(ys,i)
         if not hasattr(res, '__len__'):
             res = res*np.ones(nb_points)
-        ax.plot(res,ys, label=r'$iso_N$',color='b')
+        # ax.plot(res,ys, label=r'$iso_N$',color='b')
+        ax.plot(res,ys)
     for isoPLi in isoPL:
         res = isoPLi(xs,i)
         if not hasattr(res, '__len__'):
             res = res*np.ones(nb_points)
-        ax.plot(xs,res, label=r'$iso_P$',color='g')
+        # ax.plot(xs,res, label=r'$iso_P$',color='g')
+        ax.plot(xs,res)
 
     deltax = 0.01*(xlim[1]-xlim[0])
     deltay = 0.01*(ylim[1]-ylim[0])
@@ -275,6 +399,9 @@ for i in np.linspace(zlim[0],zlim[1],frames):
     ax.set_yticks([])
     ax.set_yticklabels([])
     ax.set_xticklabels([])
+
+    ax.legend()
+
     # fig.savefig('bifurcation/phase_space_%s=%.3f.png'%(str(var),i))
     fig.savefig('bifurcation/%s_%s/%s/phase_space_%s=%03d.png'%(modelF,modelG,str(var),str(var),qwe))
 

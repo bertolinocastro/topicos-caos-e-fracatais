@@ -1,0 +1,7 @@
+<string>:2: RuntimeWarning: overflow encountered in double_scalars
+<string>:2: RuntimeWarning: overflow encountered in double_scalars
+<string>:2: RuntimeWarning: invalid value encountered in double_scalars
+/home/bertolino/.local/lib/python3.6/site-packages/numpy/core/_methods.py:32: RuntimeWarning: invalid value encountered in reduce
+  return umr_minimum(a, axis, None, out, keepdims, initial)
+/home/bertolino/.local/lib/python3.6/site-packages/numpy/core/_methods.py:28: RuntimeWarning: invalid value encountered in reduce
+  return umr_maximum(a, axis, None, out, keepdims, initial)

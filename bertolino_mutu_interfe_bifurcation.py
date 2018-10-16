@@ -25,6 +25,7 @@ from scipy.integrate import odeint
 
 import random
 
+sys.stdout = open('stdout.txt','w')
 sys.stderr = open('stderr.txt','w')
 
 init_printing()
@@ -94,11 +95,11 @@ m0 = .7
 h0 = .2
 w0 = .5
 
-r0 = r
-var = r
+m0 = m
+var = m
 
-zlim = (.6,2.5)
-frames = 2000
+zlim = (-1,2)
+frames = 500
 
 y0 = [25.,10.]
 
@@ -121,23 +122,45 @@ def odeFunc(ini, t, par):
 nit = 6000
 ymin = np.zeros((frames,2)); ymax = np.zeros((frames,2))
 param = np.linspace(zlim[0],zlim[1],frames)
+print(param)
 t = np.arange(0, nit, 1.)
+
+dataN = np.zeros(nit)
+dataP = np.zeros(nit)
+
+dataN[0], dataP[0] = y0
+
 for i,par in enumerate(param):
     # fi = plt.figure()
     # ax = fi.add_subplot(111)
     y = odeint(odeFunc, y0, t, (par,),full_output=False)
+    # for j in range(1,nit):
+    #     dataN[j] = dataN[j-1] + 0.01*NpL(dataN[-1],dataP[-1],par)
+    #     dataP[j] = dataP[j-1] + 0.01*PpL(dataN[-1],dataP[-1],par)
+
     ymin[i] = y[-1000:,:].min(axis=0)
     ymax[i] = y[-1000:,:].max(axis=0)
+    # ymin[i] = dataN[-1000:].min(),dataP[-1000:,].min()
+    # ymax[i] = dataN[-1000:].max(),dataP[-1000:,].max()
     # ax.plot(y[-1000:,0],y[-1000:,1])
     # plt.savefig('lixo/teste%.4f.png'%par)
 
-Ncolor = "#%06x" % random.randint(0, 0xFFFFFF)
-axx1.plot(param, ymin[:,0], color=Ncolor)
-# axx1.plot(param, ymax[:,0], color=Ncolor)
+# print(ymin)
+# print()
+# print(ymax)
 
-Pcolor = "#%06x" % random.randint(0, 0xFFFFFF)
-axx2.plot(param, ymin[:,1], color=Pcolor)
-# axx2.plot(param, ymax[:,1], color=Pcolor)
+# Ncolor = "#%06x" % random.randint(0, 0xFFFFFF)
+axx1.scatter(param, ymin[:,0], s=2, color='b', label='min')
+# Ncolor = "#%06x" % random.randint(0, 0xFFFFFF)
+axx1.scatter(param, ymax[:,0], s=2, color='g', label='max')
+
+# Pcolor = "#%06x" % random.randint(0, 0xFFFFFF)
+axx2.scatter(param, ymin[:,1], s=2, color='b', label='min')
+# Pcolor = "#%06x" % random.randint(0, 0xFFFFFF)
+axx2.scatter(param, ymax[:,1], s=2, color='g', label='max')
+
+axx1.legend()
+axx2.legend()
 
 # axx1.set_xlabel('$'+str(var)+'$')
 axx1.set_xlabel('') # the string is empty to prevent overlap on the plot
@@ -145,5 +168,7 @@ axx2.set_xlabel('$'+str(var)+'$')
 
 axx1.set_ylabel('$N('+str(var)+')$')
 axx2.set_ylabel('$P('+str(var)+')$')
+
+# fi.legend()
 
 plt.show()

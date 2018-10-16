@@ -1,0 +1,2558 @@
+
+System functional properties: LM + BDA
+
+
+dN/dt
+
+        N⋅P⋅a             ⎛  N    ⎞
+- ───────────────── + N⋅r⋅⎜- ─ + 1⎟
+  N⋅a⋅h + P⋅a⋅w + 1       ⎝  k    ⎠
+
+dP/dt
+
+     N⋅P⋅a⋅e           
+───────────────── - P⋅q
+N⋅a⋅h + P⋅a⋅w + 1      
+
+Isoclines for N
+
+⎡                            _________________________________________________
+⎢                           ╱   ⎛ 2  2    2        2                2         
+⎢     P⋅a⋅w - a⋅h⋅k + 1   ╲╱  r⋅⎝P ⋅a ⋅r⋅w  + 2⋅P⋅a ⋅h⋅k⋅r⋅w - 4⋅P⋅a ⋅h⋅k + 2⋅
+⎢0, - ───────────────── - ────────────────────────────────────────────────────
+⎣           2⋅a⋅h                                                  2⋅a⋅h⋅r    
+
+______________________________________                           _____________
+           2  2  2                  ⎞                           ╱   ⎛ 2  2    
+P⋅a⋅r⋅w + a ⋅h ⋅k ⋅r + 2⋅a⋅h⋅k⋅r + r⎠     P⋅a⋅w - a⋅h⋅k + 1   ╲╱  r⋅⎝P ⋅a ⋅r⋅w
+──────────────────────────────────────, - ───────────────── + ────────────────
+                                                2⋅a⋅h                         
+
+__________________________________________________________________________⎤
+2        2                2                    2  2  2                  ⎞ ⎥
+  + 2⋅P⋅a ⋅h⋅k⋅r⋅w - 4⋅P⋅a ⋅h⋅k + 2⋅P⋅a⋅r⋅w + a ⋅h ⋅k ⋅r + 2⋅a⋅h⋅k⋅r + r⎠ ⎥
+──────────────────────────────────────────────────────────────────────────⎥
+                         2⋅a⋅h⋅r                                          ⎦
+
+Isoclines for P
+
+⎡   N⋅e   N⋅h    1 ⎤
+⎢0, ─── - ─── - ───⎥
+⎣   q⋅w    w    a⋅w⎦
+
+
+fix points:
+
+⎡                      ⎛     ⎛        2                        _______________
+⎢                      ⎜1.25⋅⎝- 45.0⋅k  + 20.1246117974981⋅k⋅╲╱ k⋅(5.0⋅k + 32.
+⎢(0.0, 0.0), (k, 0.0), ⎜──────────────────────────────────────────────────────
+⎢                      ⎜                                                      
+⎣                      ⎝                           45.0⋅k - 20.1246117974981⋅(
+
+___                                __________________⎞                        
+0)  - 184.0⋅k + 17.8885438199983⋅╲╱ k⋅(5.0⋅k + 32.0) ⎠                        
+──────────────────────────────────────────────────────, -2.25⋅k + 1.0062305898
+                 0.5                                                          
+k⋅(5.0⋅k + 32.0))    + 80.0                                                   
+
+                               ⎞  ⎛ ⎛       2                        _________
+       __________________      ⎟  ⎜-⎝225.0⋅k  + 100.623058987491⋅k⋅╲╱ k⋅(5.0⋅k
+7491⋅╲╱ k⋅(5.0⋅k + 32.0)  - 4.0⎟, ⎜───────────────────────────────────────────
+                               ⎟  ⎜                                           
+                               ⎠  ⎝                        180.0⋅k + 80.498447
+
+_________                                __________________⎞                  
+ + 32.0)  + 920.0⋅k + 89.4427190999916⋅╲╱ k⋅(5.0⋅k + 32.0) ⎠                  
+─────────────────────────────────────────────────────────────, -2.25⋅k - 1.006
+                          0.5                                                 
+1899924⋅(k⋅(5.0⋅k + 32.0))    + 320.0                                         
+
+                                      ⎞⎤
+              __________________      ⎟⎥
+23058987491⋅╲╱ k⋅(5.0⋅k + 32.0)  - 4.0⎟⎥
+                                      ⎟⎥
+                                      ⎠⎦
+
+
+Numeric Fixed points
+
+⎡                      ⎛     ⎛        2                        _______________
+⎢                      ⎜1.25⋅⎝- 45.0⋅k  + 20.1246117974981⋅k⋅╲╱ k⋅(5.0⋅k + 32.
+⎢(0.0, 0.0), (k, 0.0), ⎜──────────────────────────────────────────────────────
+⎢                      ⎜                                                      
+⎣                      ⎝                           45.0⋅k - 20.1246117974981⋅(
+
+___                                __________________⎞                        
+0)  - 184.0⋅k + 17.8885438199983⋅╲╱ k⋅(5.0⋅k + 32.0) ⎠                        
+──────────────────────────────────────────────────────, -2.25⋅k + 1.0062305898
+                 0.5                                                          
+k⋅(5.0⋅k + 32.0))    + 80.0                                                   
+
+                               ⎞  ⎛ ⎛       2                        _________
+       __________________      ⎟  ⎜-⎝225.0⋅k  + 100.623058987491⋅k⋅╲╱ k⋅(5.0⋅k
+7491⋅╲╱ k⋅(5.0⋅k + 32.0)  - 4.0⎟, ⎜───────────────────────────────────────────
+                               ⎟  ⎜                                           
+                               ⎠  ⎝                        180.0⋅k + 80.498447
+
+_________                                __________________⎞                  
+ + 32.0)  + 920.0⋅k + 89.4427190999916⋅╲╱ k⋅(5.0⋅k + 32.0) ⎠                  
+─────────────────────────────────────────────────────────────, -2.25⋅k - 1.006
+                          0.5                                                 
+1899924⋅(k⋅(5.0⋅k + 32.0))    + 320.0                                         
+
+                                      ⎞⎤
+              __________________      ⎟⎥
+23058987491⋅╲╱ k⋅(5.0⋅k + 32.0)  - 4.0⎟⎥
+                                      ⎟⎥
+                                      ⎠⎦
+
+
+Pitch fork bifurcation:
+
+([0], [])
+
+
+Pitch fork bifurcation:
+
+([0.0], [1.11111111111108])
+
+
+Pitch fork bifurcation:
+
+([0.0, -22222453.3388604 + 0.e-16⋅ⅈ], [])
+
+
+Pitch fork bifurcation:
+
+([0.0, 1.11111098109829 - 0.e-20⋅ⅈ, 1.11111124112395 + 0.e-19⋅ⅈ, 1.75031616498
+055e+15 - 0.e-27⋅ⅈ], [1.11111111111108])
+
+
+Pitch fork bifurcation:
+
+([0.0], [])
+
+
+Pitch fork bifurcation:
+
+([0.0], [0.0])
+
+
+jacobian matrix:
+
+⎡                        2                                                    
+⎢  1.6⋅N          0.125⋅P                  0.5⋅P                              
+⎢- ───── - ───────────────────── - ───────────────────── + 0.8                
+⎢    k                         2                       2                      
+⎢          (0.1⋅N + 0.25⋅P + 1)    (0.1⋅N + 0.25⋅P + 1)                       
+⎢                                                                             
+⎢                                                                            2
+⎢                       P⋅(0.05⋅P + 0.2)                               0.02⋅N 
+⎢                    ─────────────────────                      ──────────────
+⎢                                        2                                    
+⎣                    (0.1⋅N + 0.25⋅P + 1)                       (0.1⋅N + 0.25⋅
+
+                                     ⎤
+   -N⋅(0.05⋅N + 0.5)                 ⎥
+ ─────────────────────               ⎥
+                     2               ⎥
+ (0.1⋅N + 0.25⋅P + 1)                ⎥
+                                     ⎥
+                                     ⎥
+                  0.2⋅N              ⎥
+─────── + ───────────────────── - 0.2⎥
+      2                       2      ⎥
+P + 1)    (0.1⋅N + 0.25⋅P + 1)       ⎦
+
+Np numeric
+
+       0.5⋅N⋅P               ⎛  N    ⎞
+- ────────────────── + 0.8⋅N⋅⎜- ─ + 1⎟
+  0.1⋅N + 0.25⋅P + 1         ⎝  k    ⎠
+
+Pp numeric
+
+     0.2⋅N⋅P              
+────────────────── - 0.2⋅P
+0.1⋅N + 0.25⋅P + 1        
+
+Numeric fixed points
+
+⎡                      ⎛     ⎛        2                        _______________
+⎢                      ⎜1.25⋅⎝- 45.0⋅k  + 20.1246117974981⋅k⋅╲╱ k⋅(5.0⋅k + 32.
+⎢(0.0, 0.0), (k, 0.0), ⎜──────────────────────────────────────────────────────
+⎢                      ⎜                                                      
+⎣                      ⎝                           45.0⋅k - 20.1246117974981⋅(
+
+___                                __________________⎞                        
+0)  - 184.0⋅k + 17.8885438199983⋅╲╱ k⋅(5.0⋅k + 32.0) ⎠                        
+──────────────────────────────────────────────────────, -2.25⋅k + 1.0062305898
+                 0.5                                                          
+k⋅(5.0⋅k + 32.0))    + 80.0                                                   
+
+                               ⎞  ⎛ ⎛       2                        _________
+       __________________      ⎟  ⎜-⎝225.0⋅k  + 100.623058987491⋅k⋅╲╱ k⋅(5.0⋅k
+7491⋅╲╱ k⋅(5.0⋅k + 32.0)  - 4.0⎟, ⎜───────────────────────────────────────────
+                               ⎟  ⎜                                           
+                               ⎠  ⎝                        180.0⋅k + 80.498447
+
+_________                                __________________⎞                  
+ + 32.0)  + 920.0⋅k + 89.4427190999916⋅╲╱ k⋅(5.0⋅k + 32.0) ⎠                  
+─────────────────────────────────────────────────────────────, -2.25⋅k - 1.006
+                          0.5                                                 
+1899924⋅(k⋅(5.0⋅k + 32.0))    + 320.0                                         
+
+                                      ⎞⎤
+              __________________      ⎟⎥
+23058987491⋅╲╱ k⋅(5.0⋅k + 32.0)  - 4.0⎟⎥
+                                      ⎟⎥
+                                      ⎠⎦
+
+N numeric isoclines:
+
+⎡                             ________________________________________________
+⎢                            ╱       2                                2       
+⎣0, -1.25⋅P + 0.5⋅k - 6.25⋅╲╱  0.04⋅P  - 0.128⋅P⋅k + 0.32⋅P + 0.0064⋅k  + 0.12
+
+___________                                  _________________________________
+                                            ╱       2                         
+8⋅k + 0.64  - 5.0, -1.25⋅P + 0.5⋅k + 6.25⋅╲╱  0.04⋅P  - 0.128⋅P⋅k + 0.32⋅P + 0
+
+__________________________      ⎤
+       2                        ⎥
+.0064⋅k  + 0.128⋅k + 0.64  - 5.0⎦
+
+P numeric isoclines:
+
+[0, 3.6⋅N - 4.0]
+
+#----------------------------------------
+frame = 000 -> k = -0.300
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (-0.3000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.261855670103092]
+node -> asymptotically stable
+<string>:2: RuntimeWarning: invalid value encountered in sqrt
+<string>:2: RuntimeWarning: invalid value encountered in sqrt
+
+solution: (nan +0.0000i, nan +0.0000i)
+<string>:2: RuntimeWarning: invalid value encountered in sqrt
+<string>:2: RuntimeWarning: invalid value encountered in sqrt
+
+solution: (nan +0.0000i, nan +0.0000i)
+<string>:2: RuntimeWarning: overflow encountered in double_scalars
+<string>:2: RuntimeWarning: invalid value encountered in double_scalars
+<string>:2: RuntimeWarning: invalid value encountered in double_scalars
+
+#----------------------------------------
+frame = 001 -> k = -0.277
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (-0.2768 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.800000000000002, -0.256929150218158]
+node -> asymptotically stable
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+#----------------------------------------
+frame = 002 -> k = -0.254
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (-0.2535 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999998, -0.252026116696032]
+node -> asymptotically stable
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+#----------------------------------------
+frame = 003 -> k = -0.230
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (-0.2303 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999998, -0.247146401985112]
+node -> asymptotically stable
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+#----------------------------------------
+frame = 004 -> k = -0.207
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (-0.2071 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.800000000000007, -0.242289840123773]
+node -> asymptotically stable
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+#----------------------------------------
+frame = 005 -> k = -0.184
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (-0.1838 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.800000000000004, -0.237456266721546]
+node -> asymptotically stable
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+#----------------------------------------
+frame = 006 -> k = -0.161
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (-0.1606 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999998, -0.232645518940562]
+node -> asymptotically stable
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+#----------------------------------------
+frame = 007 -> k = -0.137
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (-0.1374 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999995, -0.227857435477265]
+node -> asymptotically stable
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+#----------------------------------------
+frame = 008 -> k = -0.114
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (-0.1141 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.800000000000005, -0.223091856544395]
+node -> asymptotically stable
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+#----------------------------------------
+frame = 009 -> k = -0.091
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (-0.0909 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.218348623853211]
+node -> asymptotically stable
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+#----------------------------------------
+frame = 010 -> k = -0.068
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (-0.0677 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999997, -0.213627580595953]
+node -> asymptotically stable
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+#----------------------------------------
+frame = 011 -> k = -0.044
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (-0.0444 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.208928571428571]
+node -> asymptotically stable
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+#----------------------------------------
+frame = 012 -> k = -0.021
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (-0.0212 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.20425144245369]
+node -> asymptotically stable
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+solution: (nan +0.0000i, nan +0.0000i)
+
+#----------------------------------------
+frame = 013 -> k = 0.002
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.0020 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999999, -0.199596041203798]
+node -> asymptotically stable
+
+solution: (0.0698 +0.0000i, -3.7487 +0.0000i)
+its eigenvalues: 
+[-32.3226588110206, 4.67572292094524]
+saddle -> instable
+
+solution: (-0.0723 +0.0000i, -4.2604 +0.0000i)
+its eigenvalues: 
+[-4.93607351637678, 33.5830094064524]
+saddle -> instable
+
+#----------------------------------------
+frame = 014 -> k = 0.025
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.0253 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.194962216624685]
+node -> asymptotically stable
+
+solution: (0.2360 +0.0000i, -3.1505 +0.0000i)
+its eigenvalues: 
+[-8.69959297000936, 1.22400521737318]
+saddle -> instable
+
+solution: (-0.2675 +0.0000i, -4.9631 +0.0000i)
+its eigenvalues: 
+[-1.4853651948457, 9.9609529474819]
+saddle -> instable
+
+#----------------------------------------
+frame = 015 -> k = 0.048
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.0485 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999999, -0.190349819059108]
+node -> asymptotically stable
+
+solution: (0.3192 +0.0000i, -2.8510 +0.0000i)
+its eigenvalues: 
+[-6.10937374475877, 0.843092447423364]
+saddle -> instable
+
+solution: (-0.3798 +0.0000i, -5.3672 +0.0000i)
+its eigenvalues: 
+[-1.10546802183268, 7.3717493191681]
+saddle -> instable
+
+#----------------------------------------
+frame = 016 -> k = 0.072
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.0717 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.185758700230669]
+node -> asymptotically stable
+
+solution: (0.3810 +0.0000i, -2.6285 +0.0000i)
+its eigenvalues: 
+[-4.9162904578882, 0.666568449714494]
+saddle -> instable
+
+solution: (-0.4706 +0.0000i, -5.6942 +0.0000i)
+its eigenvalues: 
+[-0.929965973965228, 6.17968798213895]
+saddle -> instable
+
+#----------------------------------------
+frame = 017 -> k = 0.095
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.0949 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.800000000000001, -0.181188713227936]
+node -> asymptotically stable
+
+solution: (0.4315 +0.0000i, -2.4467 +0.0000i)
+its eigenvalues: 
+[-4.19442438321521, 0.559081129047875]
+saddle -> instable
+
+solution: (-0.5502 +0.0000i, -5.9806 +0.0000i)
+its eigenvalues: 
+[-0.823507098017721, 5.45885035218507]
+saddle -> instable
+
+#----------------------------------------
+frame = 018 -> k = 0.118
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.1182 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.176639712488769]
+node -> asymptotically stable
+
+solution: (0.4747 +0.0000i, -2.2911 +0.0000i)
+its eigenvalues: 
+[-3.69794048024457, 0.484658705525394]
+saddle -> instable
+
+solution: (-0.6224 +0.0000i, -6.2407 +0.0000i)
+its eigenvalues: 
+[-0.750119760194642, 4.96340153491383]
+saddle -> instable
+
+#----------------------------------------
+frame = 019 -> k = 0.141
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.1414 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.800000000000001, -0.17211155378486]
+node -> asymptotically stable
+
+solution: (0.5127 +0.0000i, -2.1541 +0.0000i)
+its eigenvalues: 
+[-3.3297052034106, 0.429075009713298]
+saddle -> instable
+
+solution: (-0.6895 +0.0000i, -6.4822 +0.0000i)
+its eigenvalues: 
+[-0.695577941468315, 4.59620813516563]
+saddle -> instable
+/home/bertolino/.local/lib/python3.6/site-packages/matplotlib/pyplot.py:513: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
+  max_open_warning, RuntimeWarning)
+
+#----------------------------------------
+frame = 020 -> k = 0.165
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.1646 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.167604094206499]
+node -> asymptotically stable
+
+solution: (0.5469 +0.0000i, -2.0313 +0.0000i)
+its eigenvalues: 
+[-3.04260442586923, 0.385423498040886]
+saddle -> instable
+
+solution: (-0.7527 +0.0000i, -6.7096 +0.0000i)
+its eigenvalues: 
+[-0.652975253160796, 4.31015618098914]
+saddle -> instable
+
+#----------------------------------------
+frame = 021 -> k = 0.188
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.1879 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.163117192147531]
+node -> asymptotically stable
+
+solution: (0.5779 +0.0000i, -1.9195 +0.0000i)
+its eigenvalues: 
+[-2.8106571124392, 0.349892172046577]
+saddle -> instable
+
+solution: (-0.8128 +0.0000i, -6.9259 +0.0000i)
+its eigenvalues: 
+[-0.618499856382941, 4.07926479677557]
+saddle -> instable
+
+#----------------------------------------
+frame = 022 -> k = 0.211
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.2111 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999999, -0.158650707290534]
+node -> asymptotically stable
+
+solution: (0.6064 +0.0000i, -1.8169 +0.0000i)
+its eigenvalues: 
+[-2.61820757220431, 0.320181952517983]
+saddle -> instable
+
+solution: (-0.8703 +0.0000i, -7.1331 +0.0000i)
+its eigenvalues: 
+[-0.58985283637804, 3.88787845606438]
+saddle -> instable
+
+#----------------------------------------
+frame = 023 -> k = 0.234
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.2343 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.154204500592184]
+node -> asymptotically stable
+
+solution: (0.6328 +0.0000i, -1.7218 +0.0000i)
+its eigenvalues: 
+[-2.45518607844977, 0.29481275748586]
+saddle -> instable
+
+solution: (-0.9258 +0.0000i, -7.3328 +0.0000i)
+its eigenvalues: 
+[-0.565554280730434, 3.72592760169435]
+saddle -> instable
+
+#----------------------------------------
+frame = 024 -> k = 0.258
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.2576 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.800000000000001, -0.149778434268832]
+node -> asymptotically stable
+
+solution: (0.6575 +0.0000i, -1.6331 +0.0000i)
+its eigenvalues: 
+[-2.31478291319313, 0.272782774349241]
+saddle -> instable
+
+solution: (-0.9794 +0.0000i, -7.5260 +0.0000i)
+its eigenvalues: 
+[-0.544602551717328, 3.58660269056123]
+saddle -> instable
+
+#----------------------------------------
+frame = 025 -> k = 0.281
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.2808 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.800000000000001, -0.145372371782275]
+node -> asymptotically stable
+
+solution: (0.6805 +0.0000i, -1.5500 +0.0000i)
+its eigenvalues: 
+[-2.19220613673042, 0.25338639623735]
+saddle -> instable
+
+solution: (-1.0316 +0.0000i, -7.7136 +0.0000i)
+its eigenvalues: 
+[-0.526292222910125, 3.46511196340321]
+saddle -> instable
+
+#----------------------------------------
+frame = 026 -> k = 0.304
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.3040 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999999, -0.140986177825704]
+node -> asymptotically stable
+
+solution: (0.7023 +0.0000i, -1.4718 +0.0000i)
+its eigenvalues: 
+[-2.08397282617407, 0.236110293622208]
+saddle -> instable
+
+solution: (-1.0823 +0.0000i, -7.8964 +0.0000i)
+its eigenvalues: 
+[-0.510110151040104, 3.35797268359196]
+saddle -> instable
+
+#----------------------------------------
+frame = 027 -> k = 0.327
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.3273 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.136619718309859]
+node -> asymptotically stable
+
+solution: (0.7228 +0.0000i, -1.3978 +0.0000i)
+its eigenvalues: 
+[-1.98748259947946, 0.220570848023546]
+saddle -> instable
+
+solution: (-1.1319 +0.0000i, -8.0749 +0.0000i)
+its eigenvalues: 
+[-0.495672909971021, 3.26258466142694]
+saddle -> instable
+
+#----------------------------------------
+frame = 028 -> k = 0.351
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.3505 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.800000000000001, -0.13227286034937]
+node -> asymptotically stable
+
+solution: (0.7423 +0.0000i, -1.3277 +0.0000i)
+its eigenvalues: 
+[-1.90074950930926, 0.2064748003088]
+saddle -> instable
+
+solution: (-1.1804 +0.0000i, -8.2496 +0.0000i)
+its eigenvalues: 
+[-0.482687439282442, 3.17696214828292]
+saddle -> instable
+
+#----------------------------------------
+frame = 029 -> k = 0.374
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.3737 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.12794547224927]
+node -> asymptotically stable
+
+solution: (0.7609 +0.0000i, -1.2609 +0.0000i)
+its eigenvalues: 
+[-1.82222719265044, 0.193593574321275]
+saddle -> instable
+
+solution: (-1.2280 +0.0000i, -8.4209 +0.0000i)
+its eigenvalues: 
+[-0.470925368198018, 3.09955898652719]
+saddle -> instable
+
+#----------------------------------------
+frame = 030 -> k = 0.397
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.3970 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.800000000000001, -0.123637423491693]
+node -> asymptotically stable
+
+solution: (0.7785 +0.0000i, -1.1973 +0.0000i)
+its eigenvalues: 
+[-1.75069121822413, 0.181745991509549]
+saddle -> instable
+
+solution: (-1.2747 +0.0000i, -8.5891 +0.0000i)
+its eigenvalues: 
+[-0.460205730532982, 3.02915095724757]
+saddle -> instable
+
+#----------------------------------------
+frame = 031 -> k = 0.420
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.4202 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.119348584722761]
+node -> asymptotically stable
+
+solution: (0.7954 +0.0000i, -1.1365 +0.0000i)
+its eigenvalues: 
+[-1.68515775893071, 0.170786316596333]
+saddle -> instable
+
+solution: (-1.3207 +0.0000i, -8.7544 +0.0000i)
+its eigenvalues: 
+[-0.45038301070045, 2.96475445303485]
+saddle -> instable
+
+#----------------------------------------
+frame = 032 -> k = 0.443
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.4434 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.115078827739627]
+node -> asymptotically stable
+
+solution: (0.8116 +0.0000i, -1.0782 +0.0000i)
+its eigenvalues: 
+[-1.62482603880026, 0.160595793747287]
+saddle -> instable
+
+solution: (-1.3659 +0.0000i, -8.9173 +0.0000i)
+its eigenvalues: 
+[-0.441338680238441, 2.90556892529142]
+saddle -> instable
+
+#----------------------------------------
+frame = 033 -> k = 0.467
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.4667 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.110828025477707]
+node -> asymptotically stable
+
+solution: (0.8271 +0.0000i, -1.0223 +0.0000i)
+its eigenvalues: 
+[-1.56903675508935, 0.151076529075415]
+saddle -> instable
+
+solution: (-1.4105 +0.0000i, -9.0777 +0.0000i)
+its eigenvalues: 
+[-0.432975080694811, 2.85093530670876]
+saddle -> instable
+
+#----------------------------------------
+frame = 034 -> k = 0.490
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.4899 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.106596051998074]
+node -> asymptotically stable
+
+solution: (0.8421 +0.0000i, -0.9685 +0.0000i)
+its eigenvalues: 
+[-1.51724148671462, 0.14214698737778]
+saddle -> instable
+
+solution: (-1.4544 +0.0000i, -9.2360 +0.0000i)
+its eigenvalues: 
+[-0.425210920768568, 2.80030542010543]
+saddle -> instable
+
+#----------------------------------------
+frame = 035 -> k = 0.513
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.5131 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.102382782475019]
+node -> asymptotically stable
+
+solution: (0.8564 +0.0000i, -0.9168 +0.0000i)
+its eigenvalues: 
+[-1.46897981548252, 0.133738622554336]
+saddle -> instable
+
+solution: (-1.4979 +0.0000i, -9.3923 +0.0000i)
+its eigenvalues: 
+[-0.417977907159249, 2.75321910008744]
+saddle -> instable
+
+#----------------------------------------
+frame = 036 -> k = 0.536
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.5364 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0981880931837793]
+node -> asymptotically stable
+
+solution: (0.8703 +0.0000i, -0.8669 +0.0000i)
+its eigenvalues: 
+[-1.42386196272824, 0.12579331902812]
+saddle -> instable
+
+solution: (-1.5408 +0.0000i, -9.5467 +0.0000i)
+its eigenvalues: 
+[-0.411218186445626, 2.70928683014577]
+saddle -> instable
+
+#----------------------------------------
+frame = 037 -> k = 0.560
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.5596 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.800000000000001, -0.0940118614884254]
+node -> asymptotically stable
+
+solution: (0.8837 +0.0000i, -0.8188 +0.0000i)
+its eigenvalues: 
+[-1.38155543600361, 0.118261423034353]
+saddle -> instable
+
+solution: (-1.5832 +0.0000i, -9.6994 +0.0000i)
+its eigenvalues: 
+[-0.404882376863533, 2.66817638983281]
+saddle -> instable
+
+#----------------------------------------
+frame = 038 -> k = 0.583
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.5828 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0898539658299131]
+node -> asymptotically stable
+
+solution: (0.8966 +0.0000i, -0.7723 +0.0000i)
+its eigenvalues: 
+[-1.34177463542636, 0.111100209428182]
+saddle -> instable
+
+solution: (-1.6251 +0.0000i, -9.8505 +0.0000i)
+its eigenvalues: 
+[-0.398928035635022, 2.62960246163322]
+saddle -> instable
+
+#----------------------------------------
+frame = 039 -> k = 0.606
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.6061 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0857142857142857]
+node -> asymptotically stable
+
+solution: (0.9091 +0.0000i, -0.7273 +0.0000i)
+its eigenvalues: 
+[-1.30427267446635, 0.104272674466353]
+saddle -> instable
+
+solution: (-1.6667 +0.0000i, -10.0000 +0.0000i)
+its eigenvalues: 
+[-0.393318452306808, 2.59331845230681]
+saddle -> instable
+
+#----------------------------------------
+frame = 040 -> k = 0.629
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.6293 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0815927017010359]
+node -> asymptotically stable
+
+solution: (0.9212 +0.0000i, -0.6837 +0.0000i)
+its eigenvalues: 
+[-1.2688348783741, 0.0977465756295129]
+saddle -> instable
+
+solution: (-1.7078 +0.0000i, -10.1481 +0.0000i)
+its eigenvalues: 
+[-0.388021689167634, 2.55910999191224]
+saddle -> instable
+
+#----------------------------------------
+frame = 041 -> k = 0.653
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.6525 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0774890953916177]
+node -> asymptotically stable
+
+solution: (0.9329 +0.0000i, -0.6414 +0.0000i)
+its eigenvalues: 
+[-1.23527356819322, 0.0914936608148276]
+saddle -> instable
+
+solution: (-1.7486 +0.0000i, -10.2949 +0.0000i)
+its eigenvalues: 
+[-0.38300981107757, 2.52678971845597]
+saddle -> instable
+
+#----------------------------------------
+frame = 042 -> k = 0.676
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.6758 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0734033494181096]
+node -> asymptotically stable
+
+solution: (0.9443 +0.0000i, -0.6005 +0.0000i)
+its eigenvalues: 
+[-1.20342384034002, 0.0854890442236127]
+saddle -> instable
+
+solution: (-1.7890 +0.0000i, -10.4404 +0.0000i)
+its eigenvalues: 
+[-0.378258262037413, 2.49619305815385]
+saddle -> instable
+
+#----------------------------------------
+frame = 043 -> k = 0.699
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.6990 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0693353474320243]
+node -> asymptotically stable
+
+solution: (0.9554 +0.0000i, -0.5607 +0.0000i)
+its eigenvalues: 
+[-1.17314012468552, 0.0797106969917775]
+saddle -> instable
+
+solution: (-1.8291 +0.0000i, -10.5848 +0.0000i)
+its eigenvalues: 
+[-0.373745356550039, 2.46717478424381]
+saddle -> instable
+
+#----------------------------------------
+frame = 044 -> k = 0.722
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.7222 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0652849740932643]
+node -> asymptotically stable
+
+solution: (0.9661 +0.0000i, -0.5220 +0.0000i)
+its eigenvalues: 
+[-1.1442933569029, 0.0741390283782878]
+saddle -> instable
+
+solution: (-1.8689 +0.0000i, -10.7280 +0.0000i)
+its eigenvalues: 
+[-0.3694518615932, 2.43960619011783]
+saddle -> instable
+
+#----------------------------------------
+frame = 045 -> k = 0.745
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.7455 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0612521150592216]
+node -> asymptotically stable
+
+solution: (0.9766 +0.0000i, -0.4844 +0.0000i)
+its eigenvalues: 
+[-1.11676863955939, 0.0687565390205758]
+saddle -> instable
+
+solution: (-1.9084 +0.0000i, -10.8701 +0.0000i)
+its eigenvalues: 
+[-0.365360650717544, 2.41337275125638]
+saddle -> instable
+
+#----------------------------------------
+frame = 046 -> k = 0.769
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.7687 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0572366569740175]
+node -> asymptotically stable
+
+solution: (0.9867 +0.0000i, -0.4478 +0.0000i)
+its eigenvalues: 
+[-1.09046329511755, 0.0635475319857748]
+saddle -> instable
+
+solution: (-1.9476 +0.0000i, -11.0113 +0.0000i)
+its eigenvalues: 
+[-0.361456416004092, 2.38837217913591]
+saddle -> instable
+
+#----------------------------------------
+frame = 047 -> k = 0.792
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.7919 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.053238487457881]
+node -> asymptotically stable
+
+solution: (0.9966 +0.0000i, -0.4122 +0.0000i)
+its eigenvalues: 
+[-1.06528523548718, 0.0584978705065635]
+saddle -> instable
+
+solution: (-1.9865 +0.0000i, -11.1515 +0.0000i)
+its eigenvalues: 
+[-0.357725426775842, 2.36451279175649]
+saddle -> instable
+
+#----------------------------------------
+frame = 048 -> k = 0.815
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.8152 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0492574950966657]
+node -> asymptotically stable
+
+solution: (1.0063 +0.0000i, -0.3775 +0.0000i)
+its eigenvalues: 
+[-1.04115158900114, 0.0535947736793357]
+saddle -> instable
+
+solution: (-2.0252 +0.0000i, -11.2907 +0.0000i)
+its eigenvalues: 
+[-0.354155326347853, 2.34171214166968]
+saddle -> instable
+
+#----------------------------------------
+frame = 049 -> k = 0.838
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.8384 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999999, -0.0452935694315005]
+node -> asymptotically stable
+
+solution: (1.0157 +0.0000i, -0.3436 +0.0000i)
+its eigenvalues: 
+[-1.01798753806892, 0.0488266432246358]
+saddle -> instable
+
+solution: (-2.0636 +0.0000i, -11.4291 +0.0000i)
+its eigenvalues: 
+[-0.350734959923046, 2.31989585476738]
+saddle -> instable
+
+#----------------------------------------
+frame = 050 -> k = 0.862
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.8616 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0413466009485725]
+node -> asymptotically stable
+
+solution: (1.0248 +0.0000i, -0.3106 +0.0000i)
+its eigenvalues: 
+[-0.995725330282359, 0.0441829158114328]
+saddle -> instable
+
+solution: (-2.1019 +0.0000i, -11.5667 +0.0000i)
+its eigenvalues: 
+[-0.347454228143493, 2.29899664261447]
+saddle -> instable
+
+#----------------------------------------
+frame = 051 -> k = 0.885
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.8848 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0374164810690424]
+node -> asymptotically stable
+
+solution: (1.0338 +0.0000i, -0.2784 +0.0000i)
+its eigenvalues: 
+[-0.974303433129008, 0.0396539365333816]
+saddle -> instable
+
+solution: (-2.1398 +0.0000i, -11.7034 +0.0000i)
+its eigenvalues: 
+[-0.34430396189449, 2.27895345849016]
+saddle -> instable
+
+#----------------------------------------
+frame = 052 -> k = 0.908
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.9081 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.033503102139087]
+node -> asymptotically stable
+
+solution: (1.0425 +0.0000i, -0.2469 +0.0000i)
+its eigenvalues: 
+[-0.953665808233026, 0.0352308499737761]
+saddle -> instable
+
+solution: (-2.1776 +0.0000i, -11.8394 +0.0000i)
+its eigenvalues: 
+[-0.341275814808331, 2.25971077306762]
+saddle -> instable
+
+#----------------------------------------
+frame = 053 -> k = 0.931
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.9313 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0296063574200703]
+node -> asymptotically stable
+
+solution: (1.0511 +0.0000i, -0.2162 +0.0000i)
+its eigenvalues: 
+[-0.933761285576405, 0.030905505963055]
+saddle -> instable
+
+solution: (-2.2152 +0.0000i, -11.9747 +0.0000i)
+its eigenvalues: 
+[-0.338362170583157, 2.24121795019659]
+saddle -> instable
+
+#----------------------------------------
+frame = 054 -> k = 0.955
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.9545 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0257261410788383]
+node -> asymptotically stable
+
+solution: (1.0594 +0.0000i, -0.1862 +0.0000i)
+its eigenvalues: 
+[-0.914543021742389, 0.0266703776606975]
+saddle -> instable
+
+solution: (-2.2526 +0.0000i, -12.1093 +0.0000i)
+its eigenvalues: 
+[-0.335556062761552, 2.22342870684331]
+saddle -> instable
+
+#----------------------------------------
+frame = 055 -> k = 0.978
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (0.9778 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0218623481781376]
+node -> asymptotically stable
+
+solution: (1.0675 +0.0000i, -0.1568 +0.0000i)
+its eigenvalues: 
+[-0.895968029080504, 0.0225184900134979]
+saddle -> instable
+
+solution: (-2.2898 +0.0000i, -12.2432 +0.0000i)
+its eigenvalues: 
+[-0.332851105035533, 2.20630064410264]
+saddle -> instable
+
+#----------------------------------------
+frame = 056 -> k = 1.001
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.0010 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0180148746671564]
+node -> asymptotically stable
+
+solution: (1.0755 +0.0000i, -0.1281 +0.0000i)
+its eigenvalues: 
+[-0.877996764985457, 0.0184433569787374]
+saddle -> instable
+
+solution: (-2.3268 +0.0000i, -12.3764 +0.0000i)
+its eigenvalues: 
+[-0.330241430482683, 2.18979483848953]
+saddle -> instable
+
+#----------------------------------------
+frame = 057 -> k = 1.024
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.0242 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0141836173721825]
+node -> asymptotically stable
+
+solution: (1.0833 +0.0000i, -0.1000 +0.0000i)
+its eigenvalues: 
+[-0.860592772324894, 0.0144389261710477]
+saddle -> instable
+
+solution: (-2.3636 +0.0000i, -12.5091 +0.0000i)
+its eigenvalues: 
+[-0.327721638410944, 2.17387548456479]
+saddle -> instable
+
+#----------------------------------------
+frame = 058 -> k = 1.047
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.0475 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.0103684739873823]
+node -> asymptotically stable
+
+solution: (1.0910 +0.0000i, -0.0725 +0.0000i)
+its eigenvalues: 
+[-0.843722363547158, 0.0104995298105053]
+saddle -> instable
+
+solution: (-2.4003 +0.0000i, -12.6411 +0.0000i)
+its eigenvalues: 
+[-0.325286747710532, 2.15850958144738]
+saddle -> instable
+
+#----------------------------------------
+frame = 059 -> k = 1.071
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.0707 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, -0.00656934306569351]
+node -> asymptotically stable
+
+solution: (1.0985 +0.0000i, -0.0456 +0.0000i)
+its eigenvalues: 
+[-0.827354342219088, 0.00661984102649891]
+saddle -> instable
+
+solution: (-2.4368 +0.0000i, -12.7726 +0.0000i)
+its eigenvalues: 
+[-0.322932155791548, 2.14366665698455]
+saddle -> instable
+
+#----------------------------------------
+frame = 060 -> k = 1.094
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.0939 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.800000000000001, -0.00278612400983341]
+node -> asymptotically stable
+
+solution: (1.1058 +0.0000i, -0.0192 +0.0000i)
+its eigenvalues: 
+[-0.811459756731817, 0.0027948347161815]
+saddle -> instable
+
+solution: (-2.4732 +0.0000i, -12.9036 +0.0000i)
+its eigenvalues: 
+[-0.320653602333205, 2.12931852434968]
+saddle -> instable
+
+#----------------------------------------
+frame = 061 -> k = 1.117
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.1172 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.000981282936580036]
+saddle -> instable
+
+solution: (1.1130 +0.0000i, 0.0067 +0.0000i)
+its eigenvalues: 
+[-0.796011681741183, -0.000980247726214772]
+node -> asymptotically stable
+
+solution: (-2.5094 +0.0000i, -13.0340 +0.0000i)
+its eigenvalues: 
+[-0.318447137191879, 2.1154390666577]
+saddle -> instable
+
+#----------------------------------------
+frame = 062 -> k = 1.140
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.1404 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.00473297669779671]
+saddle -> instable
+
+solution: (1.1200 +0.0000i, 0.0320 +0.0000i)
+its eigenvalues: 
+[-0.780985023551576, -0.00470993039982762]
+node -> asymptotically stable
+
+solution: (-2.5455 +0.0000i, -13.1639 +0.0000i)
+its eigenvalues: 
+[-0.316309091915279, 2.10200404586615]
+saddle -> instable
+
+#----------------------------------------
+frame = 063 -> k = 1.164
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.1636 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.00846905537459284]
+saddle -> instable
+
+solution: (1.1269 +0.0000i, 0.0569 +0.0000i)
+its eigenvalues: 
+[-0.766356346286525, -0.0083985321119805]
+node -> asymptotically stable
+
+solution: (-2.5815 +0.0000i, -13.2933 +0.0000i)
+its eigenvalues: 
+[-0.314236054393196, 2.0889909327914]
+saddle -> instable
+
+#----------------------------------------
+frame = 064 -> k = 1.187
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.1869 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.800000000000001, 0.0121896162528216]
+saddle -> instable
+
+solution: (1.1337 +0.0000i, 0.0813 +0.0000i)
+its eigenvalues: 
+[-0.752103716020544, -0.0120501932735421]
+node -> asymptotically stable
+
+solution: (-2.6173 +0.0000i, -13.4222 +0.0000i)
+its eigenvalues: 
+[-0.312224846244369, 2.07637875553825]
+saddle -> instable
+
+#----------------------------------------
+frame = 065 -> k = 1.210
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.2101 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.015894755811858]
+saddle -> instable
+
+solution: (1.1403 +0.0000i, 0.1052 +0.0000i)
+its eigenvalues: 
+[-0.738206560569823, -0.0156689008649341]
+node -> asymptotically stable
+
+solution: (-2.6530 +0.0000i, -13.5506 +0.0000i)
+its eigenvalues: 
+[-0.310272502597, 2.06414796403167]
+saddle -> instable
+
+#----------------------------------------
+frame = 066 -> k = 1.233
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.2333 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0195845697329376]
+saddle -> instable
+
+solution: (1.1469 +0.0000i, 0.1287 +0.0000i)
+its eigenvalues: 
+[-0.724645542865965, -0.0192585118334554]
+node -> asymptotically stable
+
+solution: (-2.6885 +0.0000i, -13.6787 +0.0000i)
+its eigenvalues: 
+[-0.308376253968917, 2.0522803086682]
+saddle -> instable
+
+#----------------------------------------
+frame = 067 -> k = 1.257
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.2566 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0232591529073941]
+saddle -> instable
+
+solution: (1.1533 +0.0000i, 0.1517 +0.0000i)
+its eigenvalues: 
+[-0.71140244613825, -0.0228227752481781]
+node -> asymptotically stable
+
+solution: (-2.7240 +0.0000i, -13.8063 +0.0000i)
+its eigenvalues: 
+[-0.30653350999432, 2.04075873138065]
+saddle -> instable
+
+#----------------------------------------
+frame = 068 -> k = 1.280
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.2798 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0269185994447926]
+saddle -> instable
+
+solution: (1.1595 +0.0000i, 0.1743 +0.0000i)
+its eigenvalues: 
+[-0.698460069348054, -0.0263653535167336]
+node -> asymptotically stable
+
+solution: (-2.7593 +0.0000i, -13.9334 +0.0000i)
+its eigenvalues: 
+[-0.304741844778631, 2.02956726764332]
+saddle -> instable
+
+#----------------------------------------
+frame = 069 -> k = 1.303
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.3030 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0305630026809651]
+saddle -> instable
+
+solution: (1.1657 +0.0000i, 0.1966 +0.0000i)
+its eigenvalues: 
+[-0.685802131496277, -0.0298898429546396]
+node -> asymptotically stable
+
+solution: (-2.7945 +0.0000i, -14.0602 +0.0000i)
+its eigenvalues: 
+[-0.302998983692234, 2.01869095814308]
+saddle -> instable
+
+#----------------------------------------
+frame = 070 -> k = 1.326
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.3263 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0341924551859449]
+saddle -> instable
+
+solution: (1.1718 +0.0000i, 0.2184 +0.0000i)
+its eigenvalues: 
+[-0.673413183580854, -0.0333997939900052]
+node -> asymptotically stable
+
+solution: (-2.8296 +0.0000i, -14.1866 +0.0000i)
+its eigenvalues: 
+[-0.30130279143888, 2.00811576900965]
+saddle -> instable
+
+#----------------------------------------
+frame = 071 -> k = 1.349
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.3495 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0378070487718049]
+saddle -> instable
+
+solution: (1.1777 +0.0000i, 0.2398 +0.0000i)
+its eigenvalues: 
+[-0.661278527099387, -0.036898731287352]
+node -> asymptotically stable
+
+solution: (-2.8646 +0.0000i, -14.3126 +0.0000i)
+its eigenvalues: 
+[-0.299651261255736, 1.99782851964241]
+saddle -> instable
+
+#----------------------------------------
+frame = 072 -> k = 1.373
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.3727 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0414068745003996]
+saddle -> instable
+
+solution: (1.1836 +0.0000i, 0.2609 +0.0000i)
+its eigenvalues: 
+[-0.649384138091332, -0.0403901740819753]
+node -> asymptotically stable
+
+solution: (-2.8995 +0.0000i, -14.4382 +0.0000i)
+its eigenvalues: 
+[-0.29804250512033, 1.98781681729357]
+saddle -> instable
+
+#----------------------------------------
+frame = 073 -> k = 1.396
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.3960 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0449920226910122]
+saddle -> instable
+
+solution: (1.1893 +0.0000i, 0.2817 +0.0000i)
+its eigenvalues: 
+[-0.63771659578483, -0.0438776570331473]
+node -> asymptotically stable
+
+solution: (-2.9343 +0.0000i, -14.5635 +0.0000i)
+its eigenvalues: 
+[-0.296474744855202, 1.97806899767312]
+saddle -> instable
+
+#----------------------------------------
+frame = 074 -> k = 1.419
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.4192 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.048562582927908]
+saddle -> instable
+
+solution: (1.1950 +0.0000i, 0.3020 +0.0000i)
+its eigenvalues: 
+[-0.626263014966794, -0.0473647519301357]
+node -> asymptotically stable
+
+solution: (-2.9690 +0.0000i, -14.6884 +0.0000i)
+its eigenvalues: 
+[-0.29494630403454, 1.96857407093141]
+saddle -> instable
+
+#----------------------------------------
+frame = 075 -> k = 1.442
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.4424 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0521186440677965]
+saddle -> instable
+
+solution: (1.2006 +0.0000i, 0.3221 +0.0000i)
+its eigenvalues: 
+[-0.615010981222499, -0.0508550906224442]
+node -> asymptotically stable
+
+solution: (-3.0036 +0.0000i, -14.8130 +0.0000i)
+its eigenvalues: 
+[-0.293455600608681, 1.95932167245356]
+saddle -> instable
+
+#----------------------------------------
+frame = 076 -> k = 1.466
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.4657 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0556602942472028]
+saddle -> instable
+
+solution: (1.2061 +0.0000i, 0.3418 +0.0000i)
+its eigenvalues: 
+[-0.603948488199184, -0.0543523895960302]
+node -> asymptotically stable
+
+solution: (-3.0381 +0.0000i, -14.9372 +0.0000i)
+its eigenvalues: 
+[-0.292001140172349, 1.95030201796752]
+saddle -> instable
+
+#----------------------------------------
+frame = 077 -> k = 1.489
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.4889 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999999, 0.0591876208897485]
+saddle -> instable
+
+solution: (1.2114 +0.0000i, 0.3612 +0.0000i)
+its eigenvalues: 
+[-0.593063876030173, -0.0578604766845328]
+node -> asymptotically stable
+
+solution: (-3.0726 +0.0000i, -15.0612 +0.0000i)
+its eigenvalues: 
+[-0.290581509811235, 1.9415058625259]
+saddle -> instable
+
+#----------------------------------------
+frame = 078 -> k = 1.512
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.5121 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0627007107133457]
+saddle -> instable
+
+solution: (1.2167 +0.0000i, 0.3803 +0.0000i)
+its eigenvalues: 
+[-0.582345770011518, -0.0613833204924442]
+node -> asymptotically stable
+
+solution: (-3.1069 +0.0000i, -15.1848 +0.0000i)
+its eigenvalues: 
+[-0.289195372469048, 1.93292446297298]
+saddle -> instable
+
+#----------------------------------------
+frame = 079 -> k = 1.535
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.5354 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0661996497373029]
+saddle -> instable
+
+solution: (1.2220 +0.0000i, 0.3991 +0.0000i)
+its eigenvalues: 
+[-0.571783018546904, -0.0649250632216799]
+node -> asymptotically stable
+
+solution: (-3.1412 +0.0000i, -15.3082 +0.0000i)
+its eigenvalues: 
+[-0.287841461783776, 1.92454954355232]
+saddle -> instable
+
+#----------------------------------------
+frame = 080 -> k = 1.559
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.5586 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0696845232893471]
+saddle -> instable
+
+solution: (1.2271 +0.0000i, 0.4176 +0.0000i)
+its eigenvalues: 
+[-0.561364629259212, -0.0684900577424321]
+node -> asymptotically stable
+
+solution: (-3.1753 +0.0000i, -15.4312 +0.0000i)
+its eigenvalues: 
+[-0.2865185773476, 1.9163732643492]
+saddle -> instable
+
+#----------------------------------------
+frame = 081 -> k = 1.582
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.5818 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0731554160125589]
+saddle -> instable
+
+solution: (1.2322 +0.0000i, 0.4358 +0.0000i)
+its eigenvalues: 
+[-0.551079702002376, -0.0720829099437625]
+node -> asymptotically stable
+
+solution: (-3.2094 +0.0000i, -15.5540 +0.0000i)
+its eigenvalues: 
+[-0.285225580349979, 1.90838819229608]
+saddle -> instable
+
+#----------------------------------------
+frame = 082 -> k = 1.605
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.6051 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0766124118722255]
+saddle -> instable
+
+solution: (1.2371 +0.0000i, 0.4537 +0.0000i)
+its eigenvalues: 
+[-0.540917357275531, -0.0757085276552836]
+node -> asymptotically stable
+
+solution: (-3.2435 +0.0000i, -15.6764 +0.0000i)
+its eigenvalues: 
+[-0.283961389567796, 1.90058727449858]
+saddle -> instable
+
+#----------------------------------------
+frame = 083 -> k = 1.628
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.6283 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0800555941626129]
+saddle -> instable
+
+solution: (1.2421 +0.0000i, 0.4714 +0.0000i)
+its eigenvalues: 
+[-0.530866658226893, -0.0793721777687477]
+node -> asymptotically stable
+
+solution: (-3.2774 +0.0000i, -15.7987 +0.0000i)
+its eigenvalues: 
+[-0.282724977670322, 1.89296381366592]
+saddle -> instable
+
+#----------------------------------------
+frame = 084 -> k = 1.652
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.6515 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.083485045513654]
+saddle -> instable
+
+solution: (1.2469 +0.0000i, 0.4888 +0.0000i)
+its eigenvalues: 
+[-0.52091652400397, -0.0830795536383441]
+node -> asymptotically stable
+
+solution: (-3.3113 +0.0000i, -15.9206 +0.0000i)
+its eigenvalues: 
+[-0.281515367810201, 1.88551144545249]
+saddle -> instable
+
+#----------------------------------------
+frame = 085 -> k = 1.675
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.6747 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0869008478975601]
+saddle -> instable
+
+solution: (1.2516 +0.0000i, 0.5059 +0.0000i)
+its eigenvalues: 
+[-0.511055631618866, -0.0868368554437234]
+node -> asymptotically stable
+
+solution: (-3.3451 +0.0000i, -16.0423 +0.0000i)
+its eigenvalues: 
+[-0.280331630474614, 1.87822411753716]
+saddle -> instable
+
+#----------------------------------------
+frame = 086 -> k = 1.698
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.6980 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.090303082635351]
+saddle -> instable
+
+solution: (1.2563 +0.0000i, 0.5228 +0.0000i)
+its eigenvalues: 
+[-0.501272302688705, -0.0906508870233291]
+node -> asymptotically stable
+
+solution: (-3.3788 +0.0000i, -16.1637 +0.0000i)
+its eigenvalues: 
+[-0.279172880573464, 1.87109607028546]
+saddle -> instable
+
+#----------------------------------------
+frame = 087 -> k = 1.721
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.7212 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0936918304033092]
+saddle -> instable
+
+solution: (1.2610 +0.0000i, 0.5395 +0.0000i)
+its eigenvalues: 
+[-0.491554370291302, -0.0945291738197397]
+node -> asymptotically stable
+
+solution: (-3.4125 +0.0000i, -16.2849 +0.0000i)
+its eigenvalues: 
+[-0.278038274743773, 1.86412181885479]
+saddle -> instable
+
+#----------------------------------------
+frame = 088 -> k = 1.744
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.7444 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.0970671712393567]
+saddle -> instable
+
+solution: (1.2655 +0.0000i, 0.5559 +0.0000i)
+its eigenvalues: 
+[-0.481889019602281, -0.0984801081634971]
+node -> asymptotically stable
+
+solution: (-3.4461 +0.0000i, -16.4059 +0.0000i)
+its eigenvalues: 
+[-0.276927008851543, 1.85729613661728]
+saddle -> instable
+
+#----------------------------------------
+frame = 089 -> k = 1.768
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.7677 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.100429184549356]
+saddle -> instable
+
+solution: (1.2700 +0.0000i, 0.5721 +0.0000i)
+its eigenvalues: 
+[-0.472262593744305, -0.102513130368846]
+node -> asymptotically stable
+
+solution: (-3.4796 +0.0000i, -16.5266 +0.0000i)
+its eigenvalues: 
+[-0.27583831567421, 1.85061403978732]
+saddle -> instable
+
+#----------------------------------------
+frame = 090 -> k = 1.791
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.7909 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999999, 0.103777949113338]
+saddle -> instable
+
+solution: (1.2745 +0.0000i, 0.5880 +0.0000i)
+its eigenvalues: 
+[-0.462660353046497, -0.106638957356586]
+node -> asymptotically stable
+
+solution: (-3.5131 +0.0000i, -16.6471 +0.0000i)
+its eigenvalues: 
+[-0.274771462748438, 1.84407077315149]
+saddle -> instable
+
+#----------------------------------------
+frame = 091 -> k = 1.814
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.8141 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.107113543091655]
+saddle -> instable
+
+solution: (1.2788 +0.0000i, 0.6038 +0.0000i)
+its eigenvalues: 
+[-0.453066171154822, -0.110869875284637]
+node -> asymptotically stable
+
+solution: (-3.5465 +0.0000i, -16.7674 +0.0000i)
+its eigenvalues: 
+[-0.273725750369495, 1.83766179680893]
+saddle -> instable
+
+#----------------------------------------
+frame = 092 -> k = 1.837
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.8374 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.110436044031061]
+saddle -> instable
+
+solution: (1.2831 +0.0000i, 0.6193 +0.0000i)
+its eigenvalues: 
+[-0.443462144288967, -0.115220119819923]
+node -> asymptotically stable
+
+solution: (-3.5799 +0.0000i, -16.8875 +0.0000i)
+its eigenvalues: 
+[-0.272700509729731, 1.83138277383859]
+saddle -> instable
+
+#----------------------------------------
+frame = 093 -> k = 1.861
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.8606 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.11374552887072]
+saddle -> instable
+
+solution: (1.2874 +0.0000i, 0.6346 +0.0000i)
+its eigenvalues: 
+[-0.433828078955067, -0.119706378678036]
+node -> asymptotically stable
+
+solution: (-3.6131 +0.0000i, -17.0073 +0.0000i)
+its eigenvalues: 
+[-0.271695101184861, 1.82522955881793]
+saddle -> instable
+
+#----------------------------------------
+frame = 094 -> k = 1.884
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.8838 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.117042073948151]
+saddle -> instable
+
+solution: (1.2916 +0.0000i, 0.6497 +0.0000i)
+its eigenvalues: 
+[-0.424140806082958, -0.12434846840353]
+node -> asymptotically stable
+
+solution: (-3.6464 +0.0000i, -17.1270 +0.0000i)
+its eigenvalues: 
+[-0.27070891263782, 1.81919818712428]
+saddle -> instable
+
+#----------------------------------------
+frame = 095 -> k = 1.907
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.9071 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.12032575500509]
+saddle -> instable
+
+solution: (1.2957 +0.0000i, 0.6646 +0.0000i)
+its eigenvalues: 
+[-0.414373241355302, -0.12917026557075]
+node -> asymptotically stable
+
+solution: (-3.6796 +0.0000i, -17.2464 +0.0000i)
+its eigenvalues: 
+[-0.269741358030851, 1.81328486495688]
+saddle -> instable
+
+#----------------------------------------
+frame = 096 -> k = 1.930
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.9303 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999999, 0.123596647193294]
+saddle -> instable
+
+solution: (1.2998 +0.0000i, 0.6793 +0.0000i)
+its eigenvalues: 
+[-0.404493064025414, -0.134201020060006]
+node -> asymptotically stable
+
+solution: (-3.7127 +0.0000i, -17.3657 +0.0000i)
+its eigenvalues: 
+[-0.268791875937379, 1.80748596002277]
+saddle -> instable
+
+#----------------------------------------
+frame = 097 -> k = 1.954
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.9535 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.126854825080277]
+saddle -> instable
+
+solution: (1.3038 +0.0000i, 0.6938 +0.0000i)
+its eigenvalues: 
+[-0.394460803371849, -0.139477261217363]
+node -> asymptotically stable
+
+solution: (-3.7458 +0.0000i, -17.4847 +0.0000i)
+its eigenvalues: 
+[-0.267859928245928, 1.80179799283511]
+saddle -> instable
+
+#----------------------------------------
+frame = 098 -> k = 1.977
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (1.9768 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.799999999999999, 0.130100362654971]
+saddle -> instable
+
+solution: (1.3078 +0.0000i, 0.7081 +0.0000i)
+its eigenvalues: 
+[-0.384226969323164, -0.145045660324643]
+node -> asymptotically stable
+
+solution: (-3.7788 +0.0000i, -17.6036 +0.0000i)
+its eigenvalues: 
+[-0.266944998929074, 1.79621762857686]
+saddle -> instable
+
+#----------------------------------------
+frame = 099 -> k = 2.000
+
+
+solution: (0.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.2, 0.8]
+saddle -> instable
+
+solution: (2.0000 +0.0000i, 0.0000 +0.0000i)
+its eigenvalues: 
+[-0.8, 0.133333333333333]
+saddle -> instable
+
+solution: (1.3117 +0.0000i, 0.7223 +0.0000i)
+its eigenvalues: 
+[-0.373727567639289, -0.150967508956706]
+node -> asymptotically stable
+
+solution: (-3.8117 +0.0000i, -17.7223 +0.0000i)
+its eigenvalues: 
+[-0.266046592891001, 1.79074166948697]
+saddle -> instable
