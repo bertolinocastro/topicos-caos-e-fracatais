@@ -78,8 +78,8 @@ N, P, r, e, a, q, k, m, h, w = symbols('N P r e a q k m h w', negative=False)
 lam = symbols('lambda') # symbol used to compute the eigenvalues 'manually'
 
 # defining Functional "...?"
-# modelF = 'MG'; Fn = r*N # Malthusian growth
-modelF = 'LM'; Fn = r*N*(1-N/k) # Logistic model
+modelF = 'MG'; Fn = r*N # Malthusian growth
+# modelF = 'LM'; Fn = r*N*(1-N/k) # Logistic model
 # defining Functional response
 # modelG = 'HVH'; Gnp = a*N*P**(-m)/(1+a*h*N*P**(-m)) # HVH
 modelG = 'BDA'; Gnp = a*N/(1+a*h*N+a*w*P) # BDA
@@ -87,20 +87,20 @@ modelG = 'BDA'; Gnp = a*N/(1+a*h*N+a*w*P) # BDA
 
 # Defining initial conditions
 r0 = 0.8
-e0 = .4
+e0 = .2
 a0 = .5
-q0 = .2
+q0 = .9
 k0 = 100
 m0 = .7
-h0 = .2
+h0 = .1
 w0 = .5
 
 # about the parameter plot
-zlim = (-.3, 2)
+zlim = (.35, .7)
 frames = 100
 
-m0 = m
-var = m
+w0 = w
+var = w
 
 # printing desired output
 helloWorld()
@@ -270,24 +270,25 @@ for i in np.linspace(zlim[0],zlim[1],frames):
         lprint(eigs)
 
         n1, p1 = eigs
-        print(type(n1),type(p1))
+        n1, p1 = complex(n1),complex(p1)
         # checking stability for this point
-        if isinstance(n1, complex) and isinstance(p1, complex):
-            if n1.imag != 0 or p1.imag != 0:
-                if n1.real == p1.real and n1.imag == -p1.imag: # conjugated complex
-                    if n1.real > 0:
-                        print('hyperbolic focus -> instable')
-                        msg = 'hyperbolic focus -> instable'
-                    elif n1.real < 0:
-                        print('hyperbolic focus -> asymptotically instable')
-                        msg = 'hyperbolic focus -> asymptotically instable'
-                    else:
-                        print('center elypsis -> stable')
-                        msg = 'center elypsis -> stable'
+        # if isinstance(n1, complex) and isinstance(p1, complex):
+        if n1.imag != 0 or p1.imag != 0:
+            if n1.real == p1.real and n1.imag == -p1.imag: # conjugated complex
+                if n1.real > 0:
+                    print('hyperbolic focus -> instable')
+                    msg = 'hyperbolic focus -> instable'
+                elif n1.real < 0:
+                    print('hyperbolic focus -> asymptotically stable')
+                    msg = 'hyperbolic focus -> asymptotically stable'
                 else:
-                    print('je ne sais pas...')
-                    msg = 'nje ne sais pas...'
+                    print('center elypsis -> stable')
+                    msg = 'center elypsis -> stable'
+            else:
+                print('je ne sais pas...')
+                msg = 'nje ne sais pas...'
         else: # real
+            n1,p1 = n1.real, p1.real
             if n1*p1 == 0:
                 print('degenerated elypsis')
                 msg = 'degenerated elypsis'
@@ -400,8 +401,9 @@ for i in np.linspace(zlim[0],zlim[1],frames):
     ax.set_yticklabels([])
     ax.set_xticklabels([])
 
-    ax.legend()
-
+    # ax.legend()
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05),
+          fancybox=False, shadow=False, ncol=2)
     # fig.savefig('bifurcation/phase_space_%s=%.3f.png'%(str(var),i))
     fig.savefig('bifurcation/%s_%s/%s/phase_space_%s=%03d.png'%(modelF,modelG,str(var),str(var),qwe))
 
