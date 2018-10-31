@@ -86,7 +86,7 @@ modelG = 'BDA'; Gnp = a*N/(1+a*h*N+a*w*P) # BDA
 # TODO: The system doesn't compute fixed points for Logistic + HVH models
 
 # Defining initial conditions
-r0 = 0.8
+r0 = 0.1
 e0 = .2
 a0 = .5
 q0 = .9
@@ -96,7 +96,7 @@ h0 = .1
 w0 = .5
 
 # about the parameter plot
-zlim = (.35, .7)
+zlim = (0, 10)
 frames = 100
 
 w0 = w

@@ -25,8 +25,9 @@ from scipy.integrate import odeint
 
 import random
 
-sys.stdout = open('stdout.txt','w')
-sys.stderr = open('stderr.txt','w')
+fptr = open('stdout.txt','w')
+sys.stdout = fptr
+sys.stderr = fptr
 
 init_printing()
 
@@ -61,8 +62,8 @@ lam = symbols('lambda') # symbol used to compute the eigenvalues 'manually'
 Fn = r*N # Malthusian growth
 # Fn = r*N*(1-N/k) # Logistic model
 # defining Functional response
-Gnp = a*N*P**(-m)/(1+a*h*N*P**(-m)) # HVH
-# Gnp = a*N/(1+a*h*N+a*w*P) # BDA
+# Gnp = a*N*P**(-m)/(1+a*h*N*P**(-m)) # HVH
+Gnp = a*N/(1+a*h*N+a*w*P) # BDA
 # TODO: The system doesn't compute fixed points for Logistic + BDA models
 
 # expression for dN/dt
@@ -86,20 +87,20 @@ print("\n\nfix points:")
 lprint(fixPoints)
 
 # Defining initial conditions
-r0 = 0.8
-e0 = .4
+r0 = 0.1
+e0 = .2
 a0 = .5
-q0 = .3
+q0 = .9
 k0 = 100
 m0 = .7
-h0 = .2
+h0 = .1
 w0 = .5
 
-m0 = m
-var = m
+w0 = w
+var = w
 
-zlim = (-1,2)
-frames = 500
+zlim = (0.45,0.54)
+frames = 1000
 
 y0 = [25.,10.]
 
