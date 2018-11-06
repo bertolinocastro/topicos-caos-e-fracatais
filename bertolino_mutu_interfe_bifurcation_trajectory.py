@@ -86,7 +86,7 @@ modelG = 'BDA'; Gnp = a*N/(1+a*h*N+a*w*P) # BDA
 # TODO: The system doesn't compute fixed points for Logistic + HVH models
 
 # Defining initial conditions
-r0 = 0.1
+r0 = 0.4
 e0 = .2
 a0 = .5
 q0 = .9
@@ -96,11 +96,22 @@ h0 = .1
 w0 = .5
 
 # about the parameter plot
-zlim = (0, 10)
+zlim = (0.001, 1.7)
 frames = 100
 
 w0 = w
 var = w
+
+# hard-coded points added to test the behaviour at the curves that delimit the wXr diagram.
+w1 = h0/e0
+w2 = (e0-h0*q0)/(e0*r0)
+# w3 = (h0*q0-2*e0+2*e0*sqrt((r0+q0)*(e0-h0*q0)/(e0*r0)))/(q0*e0)
+
+print(w1,w2)
+
+zvals = np.linspace(zlim[0],zlim[1],frames)
+# zvals = np.sort(np.append(zvals,[w1,w2,w3]))
+zvals = np.sort(np.append(zvals,[w1,w2]))
 
 # printing desired output
 helloWorld()
@@ -239,7 +250,7 @@ lprint(isoP)
 # o jeito é utilizar um plot 3D ou utilizar um valor fixado de P em N e N em P...
 
 qwe = 0
-for i in np.linspace(zlim[0],zlim[1],frames):
+for i in zvals:
     fig = plt.figure()
 
     ax = fig.add_subplot(1, 1, 1)
@@ -248,7 +259,7 @@ for i in np.linspace(zlim[0],zlim[1],frames):
 
     center = [0,0]
     for xFLi,yFLi in zip(xFL,yFL):
-        pt = xFLi(i),yFLi(i)
+        pt = complex(xFLi(i)),complex(yFLi(i))
         print('\nsolution: (%.4f %+.4fi, %.4f %+.4fi)'%(pt[0].real,pt[0].imag,pt[1].real,pt[1].imag))
 
         if np.isnan(pt).any() or np.isinf(pt).any():
@@ -271,6 +282,7 @@ for i in np.linspace(zlim[0],zlim[1],frames):
 
         n1, p1 = eigs
         n1, p1 = complex(n1),complex(p1)
+        print()
         # checking stability for this point
         # if isinstance(n1, complex) and isinstance(p1, complex):
         if n1.imag != 0 or p1.imag != 0:
@@ -317,10 +329,10 @@ for i in np.linspace(zlim[0],zlim[1],frames):
 
         # center = max(*center,*pt)
         # center = [center,center]
-        if pt[0] > center[0]:
-            center[0] = pt[0]
-        if pt[1] > center[1]:
-            center[1] = pt[1]
+        if pt[0].real > center[0]:
+            center[0] = pt[0].real
+        if pt[1].real > center[1]:
+            center[1] = pt[1].real
 
     # setting arbitrary values for center if it yet is null
     if center[0] == 0:
