@@ -78,29 +78,33 @@ lprint(Pp)
 
 # solving the partial equations regarding to the variables x and y
 # here we get the eigenvalues for the pair of O.D.E.
-fixPoints = solve([ Np, # it's equal to dN/dt
-                    Pp], # it's equal to dP/dt
-                    [N, P])
+# fixPoints = solve([ Np, # it's equal to dN/dt
+#                     Pp], # it's equal to dP/dt
+#                     [N, P])
 
 # fix points (points symbolic representing possible situations with the original expression)
-print("\n\nfix points:")
-lprint(fixPoints)
+# print("\n\nfix points:")
+# lprint(fixPoints)
 
 # Defining initial conditions
-r0 = 0.1
+r0 = 0.4
 e0 = .2
 a0 = .5
 q0 = .9
-k0 = 100
-m0 = .7
+k0 = 70
+m0 = 0
 h0 = .1
 w0 = .5
 
 w0 = w
 var = w
 
-zlim = (0.45,0.54)
-frames = 1000
+frames = 400
+zlim = (0.51,1.3)
+
+param = np.linspace(zlim[0],zlim[1],frames)
+zlim = (0.1,0.49)
+param = np.sort(np.append(param,np.linspace(zlim[0],zlim[1],frames)))
 
 y0 = [25.,10.]
 
@@ -120,9 +124,9 @@ def odeFunc(ini, t, par):
     return np.array([NpL(ini[0],ini[1],par),
                      PpL(ini[0],ini[1],par)])
 
-nit = 6000
-ymin = np.zeros((frames,2)); ymax = np.zeros((frames,2))
-param = np.linspace(zlim[0],zlim[1],frames)
+nit = 25000
+ymin = np.zeros((2*frames,2)); ymax = np.zeros((2*frames,2))
+# param = np.linspace(zlim[0],zlim[1],frames)
 print(param)
 t = np.arange(0, nit, 1.)
 
@@ -132,6 +136,14 @@ dataP = np.zeros(nit)
 dataN[0], dataP[0] = y0
 
 for i,par in enumerate(param):
+
+    n0 = (-q/(a*(e*(r*w-1)+h*q))).subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:par})
+    p0 = (-e*r/(a*(e*(r*w-1)+h*q))).subs({r:r0,e:e0,a:a0,q:q0,k:k0,m:m0,h:h0,w:par})
+
+    lprint((n0,p0))
+
+    y0 = [n0+1,p0+1]
+
     # fi = plt.figure()
     # ax = fi.add_subplot(111)
     y = odeint(odeFunc, y0, t, (par,),full_output=False)
